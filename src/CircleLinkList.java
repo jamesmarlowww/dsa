@@ -7,7 +7,7 @@ public class CircleLinkList<E> implements AbstractList<E>{
 
 
     private int count;
-    private CircleLinkList<Card> tail;
+    private Card<E> tail;
 
     public CircleLinkList() {
         count = 0;
@@ -31,7 +31,7 @@ public class CircleLinkList<E> implements AbstractList<E>{
     public E get(int i) {
         if (isEmpty() || count <= i || i < 0)
             return null;
-        Card pointer = tail.next;
+        Card pointer = tail.getNext();
 
         while (i > 0) {
             pointer = pointer.next;

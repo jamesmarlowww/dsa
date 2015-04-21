@@ -3,17 +3,26 @@ import java.awt.*;
 /**
  * Created by James on 4/21/2015.
  */
-public class Card {
+public class Card<E> {
         private Suit suit;
         private int cardIndex;
         private Color cardColor;
         private int cardValue;
+        private Card<E> next;
 
         public Card(Suit suit, CardNum num, int cardIndex) {
             this.suit = suit;
             cardValue = num.getNum();
             this.cardColor = suit.getCol();
             this.cardIndex = cardIndex;
+        }
+
+        public Card getNext() {
+            return next;
+        }
+
+        public void setNext(Card next) {
+            this.next = next;
         }
 
         /**
