@@ -12,13 +12,24 @@ public class Card<E> {
 
         public Card(Suit suit, CardNum num, int cardIndex) {
             this.suit = suit;
-            cardValue = num.getNum();
+            this.cardValue = num.getNum();
             this.cardColor = suit.getCol();
             this.cardIndex = cardIndex;
         }
 
+        public Card(Card card) {
+            this.suit = card.getSuit();
+            this.cardValue = card.getValue();
+            this.cardColor = card.colour();
+            this.cardIndex = card.getCardIndex();
+        }
+
         public Card getNext() {
             return next;
+        }
+
+        public int getCardIndex() {
+            return cardIndex;
         }
 
         public void setNext(Card next) {
@@ -37,6 +48,11 @@ public class Card<E> {
          */
         public int getValue() {
             return cardValue;
+        }
+
+
+        public Card<E> getCard() {
+            return Card.this;
         }
 
         /**

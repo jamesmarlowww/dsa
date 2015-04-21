@@ -1,11 +1,14 @@
-import Card.Suit;
-import Card.CardNum;
+
+
+import javax.lang.model.element.NestingKind;
+
 /**
  * Created by James on 4/21/2015.
  */
 public class CardDeck {
     //private CircLinkedList cards;
     private Card currentCard;
+    private Card[] deck;
 
     public CardDeck() {
         createDeckWrongMethod();
@@ -22,13 +25,14 @@ public class CardDeck {
         Card.Suit[] suit = Card.Suit.values();
         Card.CardNum[] card = Card.CardNum.values();
 
-        for (Suit s : suit) {
-            for (CardNum c : card) {
+
+        for (Card.Suit s : suit) {
+            for (Card.CardNum c : card) {
                 deck[index] = new Card(s, c, index);
                 index++;
             }
         }
-
+        deck = deck;
         return deck;
     }
 
@@ -44,6 +48,21 @@ public class CardDeck {
      stack)
      */
     public void takeCard() {
+
+    }
+
+    public String toString() {
+        String s = "";
+        for (Card c : deck) {
+            s+= c.getValue()+"";
+
+        }
+        return s;
+    }
+
+    public static void main(String[] args) {
+        CardDeck deck = new CardDeck();
+        //System.out.println(deck.get());
 
     }
 

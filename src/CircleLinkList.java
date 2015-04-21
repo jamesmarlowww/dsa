@@ -1,5 +1,3 @@
-import javax.smartcardio.Card;
-
 /**
  * Created by James on 4/21/2015.
  */
@@ -8,6 +6,7 @@ public class CircleLinkList<E> implements AbstractList<E>{
 
     private int count;
     private Card<E> tail;
+
 
     public CircleLinkList() {
         count = 0;
@@ -28,16 +27,16 @@ public class CircleLinkList<E> implements AbstractList<E>{
     }
 
     @Override
-    public E get(int i) {
+    public Card get(int i) {
         if (isEmpty() || count <= i || i < 0)
             return null;
         Card pointer = tail.getNext();
 
         while (i > 0) {
-            pointer = pointer.next;
+            pointer = pointer.getNext();
             i--;
         }
-        return pointer.value;
+        return pointer.getCard();
     }
 
     public void remove(int i) {
@@ -45,15 +44,15 @@ public class CircleLinkList<E> implements AbstractList<E>{
             return;
 
         if (i == 0) {
-            tail = tail.next.next;
+            tail = tail.getNext().getNext();
         } else {
-            SingleNode<E> previous = tail.next;
-            SingleNode<E> pointer = tail.next.next;
+            Card<E> previous = tail.getNext();
+            Card<E> pointer = tail.getNext().getNext();
             int tailCheck = i;
 
             while (i > 1) {
                 previous = pointer;
-                pointer = pointer.next;
+                pointer = pointer.getNext();
                 i--;
             }
             if (tailCheck == count - 1) // pointer is on the tail
@@ -63,61 +62,56 @@ public class CircleLinkList<E> implements AbstractList<E>{
                 else
                     tail = previous;
             }
-            previous.next = (pointer.next);
+            previous = previous.getNext();
+            previous = (pointer.getNext());
         }
         count--;
 
     }
 
     @Override
-    public void add(int i, E e) {
-        if (i < 0 || i > count || e == null) {
+    public void add(int i, Card card) {
+        if (i < 0 || i > count || card == null) {
             return;
         }
 
         if (i == 0) {
-            SingleNode<E> newNode = new SingleNode(e);
+            Card<E> newNode = new Card<>(card);
             if (tail == null) // list currently empty
             {
                 tail = newNode;
-                tail.next = newNode;
+                tail = tail.getNext();
+                tail = newNode;
             } else {
 
-                // newNode.next = tail.next;
-                newNode.next = tail.next;
-                tail.next = (newNode);
+                newNode = newNode.getNext();
+                newNode = tail.getNext();
+
+                tail = tail.getNext();
+                tail = (newNode);
 
             }
 
         } else {
 
-            SingleNode newNode = new SingleNode(e);
-            SingleNode<E> previous = tail.next; // previous = head
-            SingleNode<E> pointer = tail.next.next; // pointer =
+            Card newNode = new Card(card);
+            Card<E> previous = tail.getNext(); // previous = head
+            Card<E> pointer = tail.getNext().getNext(); // pointer =
             // head.next
 
             while (i > 1) {
                 previous = pointer;
-                pointer = pointer.next();
+                pointer = pointer.getNext();
                 i--;
             }
-            newNode.next = pointer;
-            previous.next = newNode;
+            newNode = newNode.getNext();
+            newNode= pointer;
+            previous = previous.getNext();
+            previous = newNode;
         }
         count++;
     }
 
-    @Override
-    public boolean contains(E e) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void set(int i, E e) {
-        // TODO Auto-generated method stub
-
-    }
 
 
 
