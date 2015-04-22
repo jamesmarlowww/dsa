@@ -1,84 +1,152 @@
 /**
- * Created by James on 4/21/2015.
+ * Created by james on 4/22/2015.
  */
-public class CardDeck {
-    //private CircLinkedList cards;
+public class CardDeck<E> implements AbstractList<E> {
+
+    private int count;
+    private Card<E> tail;
+    private CardDeck cards;
     private Card currentCard;
-    private Card[] deck;
 
     public CardDeck() {
-        createDeckWrongMethod();
-
+        count = 0;
+        tail = null;
     }
 
 
-    public  Card[] createDeckWrongMethod() {
-
-        int size = 52;
-        int index = 0;
-        Card[] deck = new Card[52];
+    public void init() {
+        CardDeck<Card> cards = new CardDeck<>();
 
         Card.Suit[] suit = Card.Suit.values();
         Card.CardNum[] card = Card.CardNum.values();
 
-
+        int index = 0;
         for (Card.Suit s : suit) {
             for (Card.CardNum c : card) {
-                deck[index] = new Card(s, c, index);
+                Card newCard = new Card(s, c, index);
+                cards.add(newCard.getCardIndex(), newCard);
                 index++;
             }
         }
-        this.deck = deck;
-        return deck;
+        this.cards = cards;
+        this.count = cards.count;
+        this.tail = (Card<E>) cards.getTail();
     }
 
-    /**
-     * Open the next card, if this is the tail card, return null.
-     */
-    public void drawCard() {
+    public Card<E> getTail() {
+        return tail;
+    }
+
+    @Override
+    public int size() {
+        return count;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if (count <= 0)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
+    public Card get(int i) {
+        if (isEmpty() || count <= i || i < 0)
+            return null;
+        Card<E> pointer = tail.next;
+
+        while (i > 0) {
+            pointer = pointer.next;
+            i--;
+        }
+        return pointer;
+    }
+
+    public void remove(int i) {
+        if (i < 0 || i > count)
+            return;
+
+        if (i == 0) {
+            tail = tail.next.next;
+        } else {
+            Card<E> previous = tail.next;
+            Card<E> pointer = tail.next.next;
+            int tailCheck = i;
+
+            while (i > 1) {
+                previous = pointer;
+                pointer = pointer.next;
+                i--;
+            }
+            if (tailCheck == count - 1) // pointer is on the tail
+            {
+                if (previous == tail) // only one value in list
+                    tail = null;
+                else
+                    tail = previous;
+            }
+            previous.next = (pointer.next);
+        }
+        count--;
 
     }
 
-    /**
-     * Delete and return the current card (so we can place it in a list or a
-     stack)
-     */
-    public void takeCard() {
+    @Override
+    public void add(int i, Card card) {
+        if (i < 0 || i > count || card == null) {
+            return;
+        }
+        Card newCard = new Card(card);
+        if (i == 0) {
 
+            if (tail == null) // list currently empty
+            {
+                tail = newCard;
+                tail.next = newCard;
+            } else {
+
+                // newCard.next = tail.next;
+                newCard.next = tail.next;
+                tail.next = (newCard);
+
+            }
+
+        } else {
+
+
+            Card<E> previous = tail.next; // previous = head
+            Card<E> pointer = tail.next.next; // pointer =
+            // head.next
+
+            while (i > 1) {
+                previous = pointer;
+                pointer = pointer.next;
+                i--;
+            }
+            newCard.next = pointer;
+            previous.next = newCard;
+        }
+        count++;
     }
 
+
+
+    @Override
     public String toString() {
         String s = "";
-        for (Card c : deck) {
-            s+= c.getValue()+"";
-
+        Card<E> sn = tail.next;
+        int x = count;
+        while(x > 0) {
+            if(sn.next != null    ) {
+                System.out.println(sn.toString());
+                sn = sn.next;
+            }
+            x--;
         }
         return s;
     }
 
-    public static void main(String[] args) {
-//        CircleLinkList_oldd<Card> cllDeck = new CircleLinkList_oldd<>();
-//
-//        Card newCard = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 1);
-//        cllDeck.add(newCard);
-//        System.out.println(cllDeck.get(1).getSuit());
 
-
-       /* Card.Suit[] suit = Card.Suit.values();
-        Card.CardNum[] card = Card.CardNum.values();
-
-        int index =1;
-        for (Card.Suit s : suit) {
-            for (Card.CardNum c : card) {
-                Card newCard = new Card(s, c, index);
-                cllDeck.add(index, newCard);
-                index++;
-            }
-        }
-
-        System.out.println(cllDeck.toString());*/
-
-
-    }
 
 }
