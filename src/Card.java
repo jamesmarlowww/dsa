@@ -8,7 +8,7 @@ public class Card<E> {
         private int cardIndex;
         private Color cardColor;
         private int cardValue;
-        private Card<E> next;
+        public Card<E> next;
 
         public Card(Suit suit, CardNum num, int cardIndex) {
             this.suit = suit;
@@ -24,9 +24,7 @@ public class Card<E> {
             this.cardIndex = card.getCardIndex();
         }
 
-        public Card getNext() {
-            return next;
-        }
+
 
         public int getCardIndex() {
             return cardIndex;

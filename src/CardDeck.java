@@ -1,7 +1,3 @@
-
-
-import javax.lang.model.element.NestingKind;
-
 /**
  * Created by James on 4/21/2015.
  */
@@ -61,11 +57,11 @@ public class CardDeck {
     }
 
     public static void main(String[] args) {
-        CircleLinkList<Card> cllDeck = new CircleLinkList<>();
-
-        Card newCard = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 1);
-        cllDeck.add(newCard);
-        System.out.println(cllDeck.get(1).getSuit());
+//        CircleLinkList_oldd<Card> cllDeck = new CircleLinkList_oldd<>();
+//
+//        Card newCard = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 1);
+//        cllDeck.add(newCard);
+//        System.out.println(cllDeck.get(1).getSuit());
 
 
        /* Card.Suit[] suit = Card.Suit.values();
