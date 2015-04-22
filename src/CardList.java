@@ -7,7 +7,6 @@ public class CardList {
     private Card tailCard;
 
     public CircleLinkList cut(int index) {
-
         return cards;
     }
 

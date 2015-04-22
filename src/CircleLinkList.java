@@ -39,6 +39,7 @@ public class CircleLinkList<E> implements AbstractList<E>{
         return pointer.getCard();
     }
 
+
     public void remove(int i) {
         if (i < 0 || i > count)
             return;
@@ -110,6 +111,39 @@ public class CircleLinkList<E> implements AbstractList<E>{
             previous = newNode;
         }
         count++;
+    }
+
+    public void add(Card card) {
+        Card pointer = tail;
+        Card newCard = card;
+        if(isEmpty()) {
+            tail = newCard;
+        } else {
+            while(pointer.getNext() != null) {
+                pointer = pointer.getNext();
+            }
+            pointer = pointer.getNext();
+            pointer = newCard;
+        }
+
+        count++;
+
+
+
+    }
+
+
+    @Override
+    public String toString() {
+        String s = "";
+        Card pointer = tail;
+
+        do {
+
+            pointer = pointer.getNext();
+        }
+        while(pointer != tail);
+        return s;
     }
 
 

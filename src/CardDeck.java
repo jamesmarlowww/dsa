@@ -16,11 +16,11 @@ public class CardDeck {
     }
 
 
-    public static Card[] createDeckWrongMethod() {
+    public  Card[] createDeckWrongMethod() {
 
         int size = 52;
         int index = 0;
-        Card[] deck = new Card[size];
+        Card[] deck = new Card[52];
 
         Card.Suit[] suit = Card.Suit.values();
         Card.CardNum[] card = Card.CardNum.values();
@@ -32,7 +32,7 @@ public class CardDeck {
                 index++;
             }
         }
-        deck = deck;
+        this.deck = deck;
         return deck;
     }
 
@@ -61,8 +61,27 @@ public class CardDeck {
     }
 
     public static void main(String[] args) {
-        CardDeck deck = new CardDeck();
-        //System.out.println(deck.get());
+        CircleLinkList<Card> cllDeck = new CircleLinkList<>();
+
+        Card newCard = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 1);
+        cllDeck.add(newCard);
+        System.out.println(cllDeck.get(1).getSuit());
+
+
+       /* Card.Suit[] suit = Card.Suit.values();
+        Card.CardNum[] card = Card.CardNum.values();
+
+        int index =1;
+        for (Card.Suit s : suit) {
+            for (Card.CardNum c : card) {
+                Card newCard = new Card(s, c, index);
+                cllDeck.add(index, newCard);
+                index++;
+            }
+        }
+
+        System.out.println(cllDeck.toString());*/
+
 
     }
 
