@@ -49,6 +49,10 @@ public class Card<E> {
         }
 
 
+
+
+
+
         public Card<E> getCard() {
             return Card.this;
         }

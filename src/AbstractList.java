@@ -7,9 +7,9 @@ public interface AbstractList <E> {
 
     public boolean isEmpty();
 
-    public Card get(int index);
-
     public void add(int index, Card card);
+
+    public void add(Card card);
 
 
 }

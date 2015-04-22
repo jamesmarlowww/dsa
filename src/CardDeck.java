@@ -13,6 +13,17 @@ public class CardDeck<E> implements AbstractList<E> {
         tail = null;
     }
 
+    public Card drawCard() {
+
+        return null;
+
+    }
+
+    public Card takeCard() {
+
+
+        return null;
+    }
 
     public void init() {
         CardDeck<Card> cards = new CardDeck<>();
