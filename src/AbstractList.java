@@ -11,5 +11,7 @@ public interface AbstractList <E> {
 
     public void add(Card card);
 
+    public String toString();
+
 
 }

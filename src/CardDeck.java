@@ -61,7 +61,6 @@ public class CardDeck<E> implements AbstractList<E> {
             return false;
     }
 
-    @Override
     public Card get(int i) {
         if (isEmpty() || count <= i || i < 0)
             return null;
@@ -140,6 +139,11 @@ public class CardDeck<E> implements AbstractList<E> {
         }
         count++;
     }
+
+    @Override
+    public void add(Card card) {
+    }
+
 
 
 

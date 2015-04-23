@@ -5,11 +5,22 @@ public class Solitaire {
 
 
     public static void main(String[] args) {
-        CardDeck cd = new CardDeck();
-        cd.init();
-        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 52);
-        cd.add(c.getCardIndex(),c);
-        System.out.println(cd.size());
+//        CardDeck cd = new CardDeck();
+//        cd.init();
+//        cd.toString();
+//        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 52);
+//        cd.add(c.getCardIndex(),c);
+//        System.out.println(cd.size());
+
+        CardList cl = new CardList();
+        cl.init();
+//        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 23);
+//        Card c2 = new Card(Card.Suit.CLUBS, Card.CardNum.EIGHT, 3);
+//        cl.add(c2);
+//        cl.add(c);
+
+        System.out.println(cl.getTailCard());
+       // System.out.println(cl.size());
 
 
 
