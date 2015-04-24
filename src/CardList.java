@@ -1,7 +1,7 @@
 /**
  * Created by James on 4/21/2015.
  */
-public class CardList<E> implements AbstractList<E>{
+public class CardList<E> implements AbstractList<E> {
     private CardList cards;
     private int openedIndex;
     private Card tailCard;
@@ -20,7 +20,13 @@ public class CardList<E> implements AbstractList<E>{
     }
 
     public boolean isEmpty() {
-        return (count > 0);
+
+        if (count > 0)
+            return false;
+        else
+            return true;
+
+
     }
 
 
@@ -58,7 +64,7 @@ public class CardList<E> implements AbstractList<E>{
         Card current = tailCard;
         int index = 1;
 
-        if (isEmpty() || current == null) {
+        if (isEmpty()) {
             tailCard = card;
         } else {
 
@@ -82,30 +88,16 @@ public class CardList<E> implements AbstractList<E>{
     public String toString() {
         String s = "";
         Card pointer = tailCard;
-        while(pointer !=null) {
-            System.out.println(" in while loop");
-            System.out.println(pointer.toString());
-            s += pointer.previous+", ";
+        while (pointer != null) {
+            s += pointer + ", ";
             pointer = pointer.previous;
-
         }
 
         return s;
     }
 
-    public void add(int index, Card card) {}
-
-
-
-
-
-
-
-
-
-
-
-
+    public void add(int index, Card card) {
+    }
 
 
 }
