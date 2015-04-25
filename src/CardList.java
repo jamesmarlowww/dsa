@@ -15,7 +15,7 @@ public class CardList<E> implements AbstractList<E> {
     }
 
     public CardList(CardList cardlist) {
-        this.cards =cardlist;
+        this.cards = cardlist;
         this.tailCard = cardlist.getTailCard();
         this.count = size();
     }
@@ -100,22 +100,26 @@ public class CardList<E> implements AbstractList<E> {
     public CardList cut(int i) {
         CardList newList = new CardList();
         Card pointer = tailCard;
-        if (i == 0) {
+        int index = i;
 
-        } else {
-            int x = 0;
-            while (x < cards.size()) {
 
-                if (x > i) {
-                    newList.add(pointer);
-                }
-                pointer = pointer.next;
-                x++;
+        while (i > 0) {
+
+            if(index >= i) {
+
+                newList.add(pointer);
             }
+            System.out.println("in dfjsl");
+
+            pointer = pointer.next;
+
+            i--;
+
         }
+
         cards = newList;
-        count = cards.size();
-        tailCard = cards.getTailCard();
+        count = newList.count;
+        tailCard = newList.tailCard;
         return newList;
     }
 
@@ -145,6 +149,7 @@ public class CardList<E> implements AbstractList<E> {
             s += pointer + ", ";
             pointer = pointer.next;
             x--;
+            System.out.println("tls");
         }
         return s;
     }

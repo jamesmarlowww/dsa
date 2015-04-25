@@ -11,24 +11,31 @@ public class Solitaire {
 //        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 52);
 //        cd.add(c.getCardIndex(),c);
 //        System.out.println(cd.size());
-
-        CardList cl = new CardList();
-        cl.init();
-        System.out.println(cl.toString());
-        System.out.println(cl.size());
-
-        cl.cut(48);
-        System.out.println(cl.size());
-        System.out.println(cl.toString());
+//
+//        CardList cl = new CardList();
+//        cl.init();
+//        System.out.println(cl.toString());
+//        System.out.println(cl.size());
 
 
-//        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 23);
-//        Card c2 = new Card(Card.Suit.CLUBS, Card.CardNum.EIGHT, 3);
+//        cl.cut(50);
+//        System.out.println(cl.toString());
+
+
+
+        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 23);
+        Card c2 = new Card(Card.Suit.CLUBS, Card.CardNum.EIGHT, 3);
 //        cl.add(c2);
 //        cl.add(c);
 
         //System.out.println(cl.toString());
         // System.out.println(cl.size());
+
+        CardStack cs = new CardStack();
+        cs.add(c);
+        cs.add(c2);
+        cs.add(c);
+        System.out.println(cs.toString());
 
 
     }
