@@ -4,7 +4,7 @@
 public class CardList<E> implements AbstractList<E> {
     private CardList cards;
     private int openedIndex;
-    private Card tailCard;
+    public Card<E> tailCard;
     private int count;
 
     public CardList() {
@@ -56,31 +56,14 @@ public class CardList<E> implements AbstractList<E> {
 
     }
 
-    //return i .. count
-//    public CardList cut(int index) {
-//        Card pointer = tailCard;
-//        CardList newCardList = new CardList();
-//        for (int i = 1; i <= count; i++) {
-//
-//            pointer = pointer.next;
-//            if(i >= index) {
-//                System.out.println("in if loop");
-//                newCardList.add(pointer);
-//            }
-//        }
-//
-//        this.tailCard = (Card<E>) newCardList.getTailCard();
-//        this.cards = newCardList;
-//        this.count = newCardList.count;
-//        return cards;
-//    }
+
 
     public Card getTailCard() {
         return tailCard;
     }
 
     public void add(Card card) {
-        Card current = tailCard;
+        Card<E> current = tailCard;
         int index = 1;
 
         if (isEmpty()) {
@@ -96,42 +79,34 @@ public class CardList<E> implements AbstractList<E> {
 
     }
 
-    // cuts list at i, returns larger section
-    public CardList cut(int i) {
-        CardList newList = new CardList();
-        Card pointer = tailCard;
-        int index = i;
+  public CardList cut(int index) {
+      int i = 52- index;
+      Card<E> pointer = tailCard;
+      while(index > 0) {
+          index --;
+          pointer = pointer.next;
+
+      }
+      tailCard = pointer;
+      count = i;
 
 
-        while (i > 0) {
 
-            if(index >= i) {
-
-                newList.add(pointer);
-            }
-            System.out.println("in dfjsl");
-
-            pointer = pointer.next;
-
-            i--;
-
-        }
-
-        cards = newList;
-        count = newList.count;
-        tailCard = newList.tailCard;
-        return newList;
-    }
+      return cards;
+  }
 
     // adds the new list onto the end
-//    public void link(Card<Integer> list) {
-//        Card<Integer> newList = new Card();
-//        int x = list.size();
-//        while (x > 0) {
-//            newList.add(list.get(0));
-//            x--;
-//        }
-//    }
+    public void link(CardList list) {
+        CardList newList = new CardList<>();
+       // int x = list.count;
+        Card<E> pointer = tailCard;
+        while (list.tailCard != null) {
+            newList.add(pointer);
+            pointer = pointer.next;
+            newList.tailCard = pointer;
+        }
+        cards = new CardList(newList);
+    }
 
     public Card moveTail() {
         Card temp = tailCard;

@@ -5,17 +5,9 @@ public class Solitaire {
 
 
     public static void main(String[] args) {
-//        CardDeck cd = new CardDeck();
-//        cd.init();
-//        cd.toString();
-//        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 52);
-//        cd.add(c.getCardIndex(),c);
-//        System.out.println(cd.size());
-//
-//        CardList cl = new CardList();
-//        cl.init();
-//        System.out.println(cl.toString());
-//        System.out.println(cl.size());
+
+
+
 
 
 //        cl.cut(50);
@@ -23,19 +15,33 @@ public class Solitaire {
 
 
 
-        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 23);
-        Card c2 = new Card(Card.Suit.CLUBS, Card.CardNum.EIGHT, 3);
+//        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 23);
+//        Card c2 = new Card(Card.Suit.CLUBS, Card.CardNum.EIGHT, 3);
+////        cl.add(c2);
+////        cl.add(c);
+//
+//        //System.out.println(cl.toString());
+//        // System.out.println(cl.size());
+//
+//        CardList cl = new CardList();
+//        cl.add(c);
 //        cl.add(c2);
 //        cl.add(c);
+//
+//        CardList cardList = new CardList();
+//        cardList.add(c);
+//        cardList.add(c2);
+//
+//        cl.link(cardList);
+//        System.out.println(cl.toString());
 
-        //System.out.println(cl.toString());
-        // System.out.println(cl.size());
+        CardList cl = new CardList();
+        cl.init();
+        System.out.println(cl.size());
+        cl.cut(39);
+        System.out.println(cl.toString());
+        System.out.println(cl.size());
 
-        CardStack cs = new CardStack();
-        cs.add(c);
-        cs.add(c2);
-        cs.add(c);
-        System.out.println(cs.toString());
 
 
     }
