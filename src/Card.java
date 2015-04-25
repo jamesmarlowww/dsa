@@ -9,7 +9,7 @@ public class Card<E> {
         private Color cardColor;
         private int cardValue;
         public Card<E> next;
-        public Card<E> previous;
+
 
         public Card(Suit suit, CardNum num, int cardIndex) {
             this.suit = suit;
