@@ -8,6 +8,10 @@ public class Solitaire {
 
 
 
+        CardDeck cd = new CardDeck();
+        cd.init();
+        cd.fisherYatesShuffle();
+        System.out.println(cd.toString());
 
 
 //        cl.cut(50);
@@ -20,8 +24,8 @@ public class Solitaire {
 ////        cl.add(c2);
 ////        cl.add(c);
 //
-//        //System.out.println(cl.toString());
-//        // System.out.println(cl.size());
+////        System.out.println(cl.toString());
+////         System.out.println(cl.size());
 //
 //        CardList cl = new CardList();
 //        cl.add(c);
@@ -31,16 +35,16 @@ public class Solitaire {
 //        CardList cardList = new CardList();
 //        cardList.add(c);
 //        cardList.add(c2);
-//
-//        cl.link(cardList);
-//        System.out.println(cl.toString());
 
-        CardList cl = new CardList();
-        cl.init();
-        System.out.println(cl.size());
-        cl.cut(39);
-        System.out.println(cl.toString());
-        System.out.println(cl.size());
+//        cardList.size();
+
+
+//        CardList cl = new CardList();
+//        cl.init();
+//        System.out.println(cl.size());
+//        cl.moveTail();
+//        System.out.println(cl.toString());
+//        System.out.println(cl.size());
 
 
 

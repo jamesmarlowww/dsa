@@ -1,16 +1,20 @@
+import java.util.Random;
+
 /**
  * Created by james on 4/22/2015.
  */
 public class CardDeck<E> implements AbstractList<E> {
 
     private int count;
-    private Card<E> tail;
+    private Card<E> tailCard;
     private CardDeck cards;
+    private static Random random;
     private Card currentCard;
 
     public CardDeck() {
         count = 0;
-        tail = null;
+        tailCard = null;
+
     }
 
     public Card drawCard() {
@@ -26,7 +30,7 @@ public class CardDeck<E> implements AbstractList<E> {
     }
 
     public void init() {
-        CardDeck<Card> cards = new CardDeck<>();
+        CardDeck cards = new CardDeck<>();
 
         Card.Suit[] suit = Card.Suit.values();
         Card.CardNum[] card = Card.CardNum.values();
@@ -41,11 +45,30 @@ public class CardDeck<E> implements AbstractList<E> {
         }
         this.cards = cards;
         this.count = cards.count;
-        this.tail = (Card<E>) cards.getTail();
+        this.tailCard = (Card<E>) cards.getTail();
     }
 
+
+
+    public void fisherYatesShuffle() {
+        int n = cards.count;
+        for (int i = 0; i < cards.count; i++) {
+            // Get a random index of the array past i.
+            int random = i + (int) (Math.random() * (n - i));
+            // Swap the random element with the present element.
+            Card randomCard = cards.get(random);
+            cards.set(random, cards.get(i));
+
+            cards.set(i, randomCard);
+
+        }
+    }
+
+
+
+
     public Card<E> getTail() {
-        return tail;
+        return tailCard;
     }
 
     @Override
@@ -64,7 +87,7 @@ public class CardDeck<E> implements AbstractList<E> {
     public Card get(int i) {
         if (isEmpty() || count <= i || i < 0)
             return null;
-        Card<E> pointer = tail.next;
+        Card<E> pointer = tailCard.next;
 
         while (i > 0) {
             pointer = pointer.next;
@@ -78,10 +101,10 @@ public class CardDeck<E> implements AbstractList<E> {
             return;
 
         if (i == 0) {
-            tail = tail.next.next;
+            tailCard = tailCard.next.next;
         } else {
-            Card<E> previous = tail.next;
-            Card<E> pointer = tail.next.next;
+            Card<E> previous = tailCard.next;
+            Card<E> pointer = tailCard.next.next;
             int tailCheck = i;
 
             while (i > 1) {
@@ -91,10 +114,10 @@ public class CardDeck<E> implements AbstractList<E> {
             }
             if (tailCheck == count - 1) // pointer is on the tail
             {
-                if (previous == tail) // only one value in list
-                    tail = null;
+                if (previous == tailCard) // only one value in list
+                    tailCard = null;
                 else
-                    tail = previous;
+                    tailCard = previous;
             }
             previous.next = (pointer.next);
         }
@@ -110,23 +133,23 @@ public class CardDeck<E> implements AbstractList<E> {
         Card newCard = new Card(card);
         if (i == 0) {
 
-            if (tail == null) // list currently empty
+            if (tailCard == null) // list currently empty
             {
-                tail = newCard;
-                tail.next = newCard;
+                tailCard = newCard;
+                tailCard.next = newCard;
             } else {
 
                 // newCard.next = tail.next;
-                newCard.next = tail.next;
-                tail.next = (newCard);
+                newCard.next = tailCard.next;
+                tailCard.next = (newCard);
 
             }
 
         } else {
 
 
-            Card<E> previous = tail.next; // previous = head
-            Card<E> pointer = tail.next.next; // pointer =
+            Card<E> previous = tailCard.next; // previous = head
+            Card<E> pointer = tailCard.next.next; // pointer =
             // head.next
 
             while (i > 1) {
@@ -144,24 +167,57 @@ public class CardDeck<E> implements AbstractList<E> {
     public void add(Card card) {
     }
 
+    public void set(int i, Card c)
+    //pre: 0<=i<size of list, e!=null
+    //post: value at index i is changed to object e
+    {
+        if(c==null || count<=i || i < 0) return;     // index out of bounds
+        Card<E> newNode = new Card(c);
+        Card<E> pointer = tailCard.next.next;
+        int tailCheck = i;
 
+        if(i==0)                        // elemented added at start of list
+        {
+            newNode.setNext(pointer);
+            tailCard.setNext(newNode);
+        }
+        else
+        {
+            Card<E> previous = tailCard.next;          //previous = head
+
+            while(i>1)
+            {
+                previous = pointer;
+                pointer = pointer.next;
+                i--;
+            }
+            newNode.setNext(pointer.next);
+            previous.setNext(newNode);
+            if(tailCheck == count-1) tailCard = newNode;
+        }
+    }
 
 
     @Override
     public String toString() {
+
+
+
+        //works i think
         String s = "";
-        Card<E> sn = tail.next;
+        Card<E> sn = tailCard.next;
         int x = count;
-        while(x > 0) {
-            if(sn.next != null    ) {
-                System.out.println(sn.toString());
+        while (x > 0) {
+            if (sn.next != null) {
+                s += sn.toString() +", ";
                 sn = sn.next;
             }
             x--;
         }
-        return s;
-    }
 
+
+       return s;
+    }
 
 
 }

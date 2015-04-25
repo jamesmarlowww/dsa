@@ -57,7 +57,6 @@ public class CardList<E> implements AbstractList<E> {
     }
 
 
-
     public Card getTailCard() {
         return tailCard;
     }
@@ -79,39 +78,45 @@ public class CardList<E> implements AbstractList<E> {
 
     }
 
-  public CardList cut(int index) {
-      int i = 52- index;
-      Card<E> pointer = tailCard;
-      while(index > 0) {
-          index --;
-          pointer = pointer.next;
-
-      }
-      tailCard = pointer;
-      count = i;
-
-
-
-      return cards;
-  }
-
-    // adds the new list onto the end
-    public void link(CardList list) {
-        CardList newList = new CardList<>();
-       // int x = list.count;
+    public CardList cut(int index) {
+        int i = 52 - index;
         Card<E> pointer = tailCard;
-        while (list.tailCard != null) {
-            newList.add(pointer);
+        while (index > 0) {
+            index--;
             pointer = pointer.next;
-            newList.tailCard = pointer;
+
         }
-        cards = new CardList(newList);
+        tailCard = pointer;
+        count = i;
+
+
+        return cards;
     }
 
-    public Card moveTail() {
-        Card temp = tailCard;
-        tailCard = tailCard.next;
+    public void test(CardList cardList) {
+        System.out.println("dfjaklsjkf ajksdfklsajf");
+    }
 
+//    public void link(CardList cardList) {
+//        System.out.println("sdfdsf");
+//        int x = cardList.count;
+//
+//        while(x>0) {
+//            System.out.println("sdfdsf");
+//            cards.add(cardList.tailCard);
+//            cardList.tailCard = cardList.tailCard.next;
+//            tailCard = tailCard.next;
+//
+//            x--;
+//        }
+
+       // return cards;
+//    }
+
+
+    public Card moveTail() {
+        tailCard = tailCard.next;
+        count--;
         return tailCard;
     }
 
