@@ -85,7 +85,7 @@ public class Solitaire {
         while(true) {
             Scanner scan = new Scanner(System.in);
             String store = scan.nextLine();
-
+            System.out.println(gameDetails());
             executeCommand(store);
         }
 
@@ -93,22 +93,33 @@ public class Solitaire {
 
     }
 
+
+
     // executeCommand(String commmand): Perform whatever command indicates if the rules allow it and return a success message. If the command is invalid, return a warning instead.
     public static void executeCommand(String command) {
 
         switch(command) {
-
+            case "DrawCard":
+            case "DeckTo":
+            case "Link":
+            case "Send":
             case "moves": System.out.println(moves()); return;
             case "Restart": startGame(); return;
             case "quit": System.exit(0); return;
             case "Quit": System.exit(0); return;
+            default : System.out.println("Please enter a valid command\n");
         }
-
-        System.out.print("Please enter a valid command\n");
 
 
     }
 
+
+    private static String gameDetails() {
+        String game = "";
+
+
+        return game;
+    }
 
     public static String moves() {
         String moves = (  "\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
