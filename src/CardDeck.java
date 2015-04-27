@@ -18,15 +18,16 @@ public class CardDeck<E> implements AbstractList<E> {
     }
 
     public Card drawCard() {
-
-        return null;
+        tailCard = tailCard.next;
+        return tailCard;
 
     }
 
     public Card takeCard() {
+        Card temp = tailCard;
+        remove(tailCard.getCardIndex());
 
-
-        return null;
+        return temp;
     }
 
     public String isEmptyString() {

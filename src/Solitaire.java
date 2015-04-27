@@ -12,7 +12,9 @@ public class Solitaire {
 
     public static void main(String[] args) {
         solitaire = new Solitaire();
-        //System.out.println(solitaire.deck.size());
+        solitaire.deck.init();
+        solitaire.deck.fisherYatesShuffle();
+
 
         showGUI(solitaire);
         startGame();
@@ -76,8 +78,8 @@ public class Solitaire {
     public static void executeCommand(String command) {
 
         switch (command) {
-            case "DrawCard":
-            case "DeckTo":
+            case "DrawCard": solitaire.deck.drawCard(); return;
+            case "DeckTo": solitaire.deck.takeCard(); return;
             case "Link":
             case "Send":
             case "moves":
