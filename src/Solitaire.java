@@ -33,6 +33,9 @@ public class Solitaire {
         stacks[2] = new CardStack();
         stacks[3] = new CardStack();
 
+//        for(CardList c: list) {
+//            c = new CardList();
+//        }
         list[0] = new CardList();
         list[1] = new CardList();
         list[2] = new CardList();
@@ -42,59 +45,57 @@ public class Solitaire {
         list[6] = new CardList();
 
 
-        int list6 = 7;
-        int list5 = 6;
-        int list4 = 5;
-        int list3 = 4;
-        int list2 = 3;
-        int list1 = 2;
-        int list0 = 1;
 
-        for (int i = 0; i < 1; i++) {
-            list[0].add(list[0].size(), deck.get(0));
-           deck.remove(0);
-        }
-
-        for (int i = 0; i < 2; i++) {
-            list[1].add(list[1].size(), deck.get(0));
-            deck.remove(0);
-        }
-
-        for (int i = 0; i < 3; i++) {
-            list[2].add(list[2].size(), deck.get(0));
-            deck.remove(0);
-        }
-
-        for (int i = 0; i < 4; i++) {
-            list[3].add(list[3].size(), deck.get(0));
-            deck.remove(0);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            list[4].add(list[4].size(), deck.get(0));
-            deck.remove(0);
-        }
-        for (int i = 0; i < 6; i++) {
-            list[5].add(list[5].size(), deck.get(0));
-            deck.remove(0);
-        }
-        for (int i = 0; i < 7; i++) {
-            list[6].add(list[6].size(), deck.get(0));
-            deck.remove(0);
-        }
-
-
-      //  no idea why this doesnt work.
-//        for (int i = 7; i > 0; i--) {
-//            for (int j = i; j > 0; j--) {
-//                System.out.println(j);
-//                list[i-1].add(list[i-1].size() + 1, deck.takeCard());
-////                deck.remove(1);
-//                //  solitaire.list[j].add(deck.takeCard(deck.getTail()));
-//            }
+//        for (int i = 0; i < 1; i++) {
+//            list[0].add(list[0].size(), deck.get(0));
+//           deck.remove(0);
+//        }
+//
+//        for (int i = 0; i < 2; i++) {
+//            list[1].add(list[1].size(), deck.get(3));
+//            deck.remove(3);
+//        }
+//
+//        for (int i = 0; i < 3; i++) {
+//            list[2].add(list[2].size(), deck.get(0));
+//            deck.remove(0);
+//        }
+//
+//        for (int i = 0; i < 4; i++) {
+//            list[3].add(list[3].size(), deck.get(5));
+//            deck.remove(5);
+//        }
+//
+//        for (int i = 0; i < 5; i++) {
+//            list[4].add(list[4].size(), deck.get(0));
+//            deck.remove(0);
+//        }
+//        for (int i = 0; i < 6; i++) {
+//            list[5].add(list[5].size(), deck.get(0));
+//            deck.remove(0);
+//        }
+//        for (int i = 0; i < 7; i++) {
+//            list[6].add(list[6].size(), deck.get(0));
+//            deck.remove(0);
 //        }
 
 
+     //   no idea why this doesnt work.
+        for (int i = 0; i<7; i++) {
+            for (int j = i+1; j > 0; j--) {
+                list[i].add(list[i].size(), deck.get(0));
+                deck.remove(0);
+            }
+        }
+
+
+
+
+//working
+//        for (int i = 0; i<7; i++) {
+//            for (int j = i+1; j > 0; j--) {
+//
+//            }
     }
 
 
