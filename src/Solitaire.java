@@ -12,8 +12,7 @@ public class Solitaire {
 
     public static void main(String[] args) {
         solitaire = new Solitaire();
-        CardList c = new CardList();
-        c.init();
+
 
         showGUI(solitaire);
         startGame();
@@ -26,6 +25,7 @@ public class Solitaire {
         stacks = new CardStack[4];
         deck = new CardDeck();
         deck.init();
+        System.out.println(deck.toString());
         deck.fisherYatesShuffle();
 
         stacks[0] = new CardStack();
@@ -80,15 +80,23 @@ public class Solitaire {
 //        }
 
 
-     //   no idea why this doesnt work.
+     //   doesnt work
+        int x = 1;
         for (int i = 0; i<7; i++) {
             for (int j = i+1; j > 0; j--) {
-                list[i].add(list[i].size(), deck.get(0));
-                deck.remove(0);
+                list[i].add(list[i].size(), deck.takeCard());
+
+                x++;
+
             }
         }
 
-
+//        System.out.println(deck.toString());
+//
+//        while (deck.size() > 0) {
+//            System.out.println(deck.takeCard());
+//            deck.takeCard();
+//        }
 
 
 //working
@@ -124,6 +132,8 @@ public class Solitaire {
 
     // executeCommand(String commmand): Perform whatever command indicates if the rules allow it and return a success message. If the command is invalid, return a warning instead.
     public static void executeCommand(String command) {
+
+        String[] strArray = new String[] {command};
 
         switch (command) {
             case "DrawCard":

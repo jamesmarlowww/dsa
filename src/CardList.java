@@ -62,22 +62,14 @@ public class CardList<E> implements AbstractList<E> {
     }
 
     public void add(Card card) {
-        System.out.println("add");
-
         Card<E> current = tailCard;
         int index = 1;
 
         if (isEmpty()) {
             tailCard = card;
         } else {
-
             while (current.next != null) {
-
-
                 current = current.next;
-
-
-
             }
             current.next = card;
         }
@@ -144,10 +136,8 @@ public class CardList<E> implements AbstractList<E> {
     {
         if(count<i || i < 0) return;
 
-        //Card<E> newCard = c;
         if (isEmpty())
         {
-            // no nodes in the list so add newCard at start
             tailCard = newCard;
         }
         else

@@ -26,6 +26,7 @@ public class CardDeck<E> implements AbstractList<E> {
     public Card takeCard() {
         Card temp = tailCard;
         remove(tailCard.getCardIndex());
+        tailCard = temp.next;
 
         return temp;
     }
