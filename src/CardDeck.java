@@ -29,6 +29,19 @@ public class CardDeck<E> implements AbstractList<E> {
         return null;
     }
 
+    public String isEmptyString() {
+        String s = "";
+        if (count <= 0)
+            s = "Empty";
+        else
+            s = "Not Empty";
+
+        return s;
+    }
+
+
+
+
     public void init() {
         CardDeck cards = new CardDeck<>();
 

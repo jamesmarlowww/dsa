@@ -5,72 +5,48 @@ import java.util.Scanner;
  */
 public class Solitaire {
     private CardDeck deck;
-    private static CardStack[] stacks;
-    private static CardList[] list;
+    private CardStack[] stacks;
+    private CardList[] list;
+    private static Solitaire solitaire;
+
+
+    public static void main(String[] args) {
+        solitaire = new Solitaire();
+        //System.out.println(solitaire.deck.size());
+
+        showGUI(solitaire);
+        startGame();
+
+    }
 
     public Solitaire() {
-        list = new CardList[6];
-        stacks = new CardStack[3];
-        CardDeck deck = new CardDeck();
+
+
+        list = new CardList[7];
+        stacks = new CardStack[4];
+        deck = new CardDeck();
         deck.init();
         deck.fisherYatesShuffle();
 
-        for (CardStack cs : stacks) {
-            cs = new CardStack();
-        }
+        stacks[0] = new CardStack();
+        stacks[1] = new CardStack();
+        stacks[2] = new CardStack();
+        stacks[3] = new CardStack();
 
-        for (CardList cl : list) {
-            cl = new CardList();
-            cl.init();
-        }
-
-
-    }
-
-    public static void main(String[] args) {
-        Solitaire s = new Solitaire();
-        showGUI(s);
-        startGame();
+        list[0] = new CardList();
+        list[1] = new CardList();
+        list[2] = new CardList();
+        list[3] = new CardList();
+        list[4] = new CardList();
+        list[5] = new CardList();
+        list[6] = new CardList();
 
 
-//        System.out.println("Hello world");
-        // System.out.println(s.deck.toString());
-
-
-//
-//        cl.cut(50);
-//        System.out.println(cl.toString());
-
-
-//        Card c = new Card(Card.Suit.CLUBS, Card.CardNum.ACE, 23);
-//        Card c2 = new Card(Card.Suit.CLUBS, Card.CardNum.EIGHT, 3);
-////        cl.add(c2);j
-////        cl.add(c);
-//
-////        System.out.println(cl.toString());
-////         System.out.println(cl.size());
-//
-//        CardList cl = new CardList();
-//        cl.add(c);
-//        cl.add(c2);
-//        cl.add(c);
-//
-//        CardList cardList = new CardList();
-//        cardList.add(c);
-//        cardList.add(c2);
-
-//        cardList.size();
-
-
-//        CardList cl = new CardList();
-//        cl.init();
-//        System.out.println(cl.size());
-//        cl.moveTail();
-//        System.out.println(cl.toString());
-//        System.out.println(cl.size());
 
 
     }
+
+
 
     //Should create a gui then start the game
     public static void showGUI(Solitaire game) {
@@ -80,34 +56,44 @@ public class Solitaire {
     //Runs a loop that accepts commands until either a quit command is given or the player wins. Should attempt to perform any commands given, and prints all messages back to the user.
     public static void startGame() {
         System.out.println("/////////    Welcome to my Solitaire game    ///////// ");
-        System.out.println("\n// To view all the possible moves enter 'moves'");
+        System.out.println("\n// To view all the possible moves enter 'moves' \n");
 
-        while(true) {
+        while (true) {
+            System.out.println(gameDetails());
+            System.out.println("\n// Your next move: ");
             Scanner scan = new Scanner(System.in);
             String store = scan.nextLine();
-            System.out.println(gameDetails());
             executeCommand(store);
-        }
 
+
+        }
 
 
     }
 
 
-
     // executeCommand(String commmand): Perform whatever command indicates if the rules allow it and return a success message. If the command is invalid, return a warning instead.
     public static void executeCommand(String command) {
 
-        switch(command) {
+        switch (command) {
             case "DrawCard":
             case "DeckTo":
             case "Link":
             case "Send":
-            case "moves": System.out.println(moves()); return;
-            case "Restart": startGame(); return;
-            case "quit": System.exit(0); return;
-            case "Quit": System.exit(0); return;
-            default : System.out.println("Please enter a valid command\n");
+            case "moves":
+                System.out.println(moves());
+                return;
+            case "Restart":
+                startGame();
+                return;
+            case "quit":
+                System.exit(0);
+                return;
+            case "Quit":
+                System.exit(0);
+                return;
+            default:
+                System.out.println("Please enter a valid command\n");
         }
 
 
@@ -115,23 +101,28 @@ public class Solitaire {
 
 
     private static String gameDetails() {
-        String game = "";
+        String game = //"Card Lists: " + solitaire.deck.getTail();
+                "// CardDeck: "+ solitaire.deck.isEmptyString() +"  // Open Card: "+solitaire.deck.getTail() +
+                        "\n// CardStacks: "+solitaire.stacks[0].viewTop()+" " +solitaire.stacks[1].viewTop() + " "  + solitaire.stacks[2].viewTop() + " "+solitaire.stacks[3].viewTop()
+                            +"\n// CardLists: \n// 1: "+ solitaire.list[0].toString()+"\n// 2: "+solitaire.list[1].toString()+"\n// 3: "+solitaire.list[3].toString() + "\n// 4:"+solitaire.list[4].toString()+"\n// 5: "
+                                +solitaire.list[5].toString()+"\n// 6: "+solitaire.list[6].toString();
+
 
 
         return game;
     }
 
     public static String moves() {
-        String moves = (  "\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
-                        "DeckTo 3 moves the card that is currently open in the card deck to the third list.\n" +
-                        "\n-- Link c x: Suppose c is a revealed card in a card list, and 1 ?x? 7. This command\n" +
-                        "moves all cards below and including c in the same list to the xth list. For example the\n" +
-                        "command Link Spade9 6 moves all card below and including Spade6 to the 6th card\n" +
-                        "list; see the screenshot below.\n" +
-                        "\n-- Send c: Suppose c is a tail card of a card list. This command moves the card c to\n" +
-                        "the stack that corresponds to its suit.\n" +
-                        "\n-- Restart: Restart the game.\n" +
-                        "\n-- Quit: Stop the game");
+        String moves = ("\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
+                "DeckTo 3 moves the card that is currently open in the card deck to the third list.\n" +
+                "\n-- Link c x: Suppose c is a revealed card in a card list, and 1 ?x? 7. This command\n" +
+                "moves all cards below and including c in the same list to the xth list. For example the\n" +
+                "command Link Spade9 6 moves all card below and including Spade6 to the 6th card\n" +
+                "list; see the screenshot below.\n" +
+                "\n-- Send c: Suppose c is a tail card of a card list. This command moves the card c to\n" +
+                "the stack that corresponds to its suit.\n" +
+                "\n-- Restart: Restart the game.\n" +
+                "\n-- Quit: Stop the game");
 
         return moves;
 
