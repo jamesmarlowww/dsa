@@ -46,66 +46,14 @@ public class Solitaire {
 
 
 
-//        for (int i = 0; i < 1; i++) {
-//            list[0].add(list[0].size(), deck.get(0));
-//           deck.remove(0);
-//        }
-//
-//        for (int i = 0; i < 2; i++) {
-//            list[1].add(list[1].size(), deck.get(3));
-//            deck.remove(3);
-//        }
-//
-//        for (int i = 0; i < 3; i++) {
-//            list[2].add(list[2].size(), deck.get(0));
-//            deck.remove(0);
-//        }
-//
-//        for (int i = 0; i < 4; i++) {
-//            list[3].add(list[3].size(), deck.get(5));
-//            deck.remove(5);
-//        }
-//
-//        for (int i = 0; i < 5; i++) {
-//            list[4].add(list[4].size(), deck.get(0));
-//            deck.remove(0);
-//        }
-//        for (int i = 0; i < 6; i++) {
-//            list[5].add(list[5].size(), deck.get(0));
-//            deck.remove(0);
-//        }
-//        for (int i = 0; i < 7; i++) {
-//            list[6].add(list[6].size(), deck.get(0));
-//            deck.remove(0);
-//        }
-
-
-     //   doesnt work
         int x = 1;
         for (int i = 0; i<7; i++) {
             for (int j = i+1; j > 0; j--) {
                 list[i].add(list[i].size(), deck.takeCard());
-
-                x++;
-
             }
         }
-
-//        System.out.println(deck.toString());
-//
-//        while (deck.size() > 0) {
-//            System.out.println(deck.takeCard());
-//            deck.takeCard();
-//        }
-
-
-//working
-//        for (int i = 0; i<7; i++) {
-//            for (int j = i+1; j > 0; j--) {
-//
-//            }
+        System.out.println(deck.size());
     }
-
 
     //Should create a gui then start the game
     public static void showGUI(Solitaire game) {
@@ -133,7 +81,15 @@ public class Solitaire {
     // executeCommand(String commmand): Perform whatever command indicates if the rules allow it and return a success message. If the command is invalid, return a warning instead.
     public static void executeCommand(String command) {
 
-        String[] strArray = new String[] {command};
+        String[] s = command.split(" ");
+//        System.out.println(s[0].toString());
+//        System.out.println(s[1].toString());
+
+        if(s[0] == "Send") {
+            System.out.println("yussssss");
+        }
+
+
 
         switch (command) {
             case "DrawCard":
