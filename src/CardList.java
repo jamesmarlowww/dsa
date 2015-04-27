@@ -62,6 +62,8 @@ public class CardList<E> implements AbstractList<E> {
     }
 
     public void add(Card card) {
+        System.out.println("add");
+
         Card<E> current = tailCard;
         int index = 1;
 
@@ -70,7 +72,12 @@ public class CardList<E> implements AbstractList<E> {
         } else {
 
             while (current.next != null) {
+
+
                 current = current.next;
+
+
+
             }
             current.next = card;
         }
@@ -129,12 +136,38 @@ public class CardList<E> implements AbstractList<E> {
             s += pointer + ", ";
             pointer = pointer.next;
             x--;
-            System.out.println("tls");
         }
         return s;
     }
 
-    public void add(int index, Card card) {
+    public void add(int i, Card newCard)
+    {
+        if(count<i || i < 0) return;
+
+        //Card<E> newCard = c;
+        if (isEmpty())
+        {
+            // no nodes in the list so add newCard at start
+            tailCard = newCard;
+        }
+        else
+        {
+            Card<E> previous = tailCard;
+            Card<E> pointer = tailCard.next;
+            int x = 0;
+            while(i>0)
+            {
+
+                previous = pointer;
+                pointer = pointer.next;
+                i--;
+            }
+
+
+            newCard.next = pointer;
+            previous.next = newCard;
+        }
+        count++;
     }
 
 

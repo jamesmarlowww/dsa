@@ -41,8 +41,6 @@ public class CardDeck<E> implements AbstractList<E> {
     }
 
 
-
-
     public void init() {
         CardDeck cards = new CardDeck<>();
 
@@ -63,7 +61,6 @@ public class CardDeck<E> implements AbstractList<E> {
     }
 
 
-
     public void fisherYatesShuffle() {
         int n = cards.count;
         for (int i = 0; i < cards.count; i++) {
@@ -77,8 +74,6 @@ public class CardDeck<E> implements AbstractList<E> {
 
         }
     }
-
-
 
 
     public Card<E> getTail() {
@@ -185,29 +180,26 @@ public class CardDeck<E> implements AbstractList<E> {
     //pre: 0<=i<size of list, e!=null
     //post: value at index i is changed to object e
     {
-        if(c==null || count<=i || i < 0) return;     // index out of bounds
+        if (c == null || count <= i || i < 0) return;     // index out of bounds
         Card<E> newNode = new Card(c);
         Card<E> pointer = tailCard.next.next;
         int tailCheck = i;
 
-        if(i==0)                        // elemented added at start of list
+        if (i == 0)                        // elemented added at start of list
         {
             newNode.setNext(pointer);
             tailCard.setNext(newNode);
-        }
-        else
-        {
+        } else {
             Card<E> previous = tailCard.next;          //previous = head
 
-            while(i>1)
-            {
+            while (i > 1) {
                 previous = pointer;
                 pointer = pointer.next;
                 i--;
             }
             newNode.setNext(pointer.next);
             previous.setNext(newNode);
-            if(tailCheck == count-1) tailCard = newNode;
+            if (tailCheck == count - 1) tailCard = newNode;
         }
     }
 
@@ -216,21 +208,20 @@ public class CardDeck<E> implements AbstractList<E> {
     public String toString() {
 
 
-
         //works i think
         String s = "";
         Card<E> sn = tailCard.next;
         int x = count;
         while (x > 0) {
             if (sn.next != null) {
-                s += sn.toString() +", ";
+                s += sn.toString() + ", ";
                 sn = sn.next;
             }
             x--;
         }
 
 
-       return s;
+        return s;
     }
 
 

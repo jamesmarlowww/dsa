@@ -12,9 +12,8 @@ public class Solitaire {
 
     public static void main(String[] args) {
         solitaire = new Solitaire();
-        solitaire.deck.init();
-        solitaire.deck.fisherYatesShuffle();
-
+        CardList c = new CardList();
+        c.init();
 
         showGUI(solitaire);
         startGame();
@@ -22,7 +21,6 @@ public class Solitaire {
     }
 
     public Solitaire() {
-
 
         list = new CardList[7];
         stacks = new CardStack[4];
@@ -44,10 +42,60 @@ public class Solitaire {
         list[6] = new CardList();
 
 
+        int list6 = 7;
+        int list5 = 6;
+        int list4 = 5;
+        int list3 = 4;
+        int list2 = 3;
+        int list1 = 2;
+        int list0 = 1;
+
+        for (int i = 0; i < 1; i++) {
+            list[0].add(list[0].size(), deck.get(0));
+           deck.remove(0);
+        }
+
+        for (int i = 0; i < 2; i++) {
+            list[1].add(list[1].size(), deck.get(0));
+            deck.remove(0);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            list[2].add(list[2].size(), deck.get(0));
+            deck.remove(0);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            list[3].add(list[3].size(), deck.get(0));
+            deck.remove(0);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            list[4].add(list[4].size(), deck.get(0));
+            deck.remove(0);
+        }
+        for (int i = 0; i < 6; i++) {
+            list[5].add(list[5].size(), deck.get(0));
+            deck.remove(0);
+        }
+        for (int i = 0; i < 7; i++) {
+            list[6].add(list[6].size(), deck.get(0));
+            deck.remove(0);
+        }
+
+
+      //  no idea why this doesnt work.
+//        for (int i = 7; i > 0; i--) {
+//            for (int j = i; j > 0; j--) {
+//                System.out.println(j);
+//                list[i-1].add(list[i-1].size() + 1, deck.takeCard());
+////                deck.remove(1);
+//                //  solitaire.list[j].add(deck.takeCard(deck.getTail()));
+//            }
+//        }
 
 
     }
-
 
 
     //Should create a gui then start the game
@@ -67,7 +115,6 @@ public class Solitaire {
             String store = scan.nextLine();
             executeCommand(store);
 
-
         }
 
 
@@ -78,15 +125,37 @@ public class Solitaire {
     public static void executeCommand(String command) {
 
         switch (command) {
-            case "DrawCard": solitaire.deck.drawCard(); return;
-            case "DeckTo": solitaire.deck.takeCard(); return;
+            case "DrawCard":
+                solitaire.deck.drawCard();
+                return;
+            case "DeckTo 1":
+                solitaire.list[0].add(solitaire.deck.takeCard());
+                return;
+            case "DeckTo 2":
+                solitaire.list[1].add(solitaire.deck.takeCard());
+                return;
+            case "DeckTo 3":
+                solitaire.list[2].add(solitaire.deck.takeCard());
+                return;
+            case "DeckTo 4":
+                solitaire.list[3].add(solitaire.deck.takeCard());
+                return;
+            case "DeckTo 5":
+                solitaire.list[4].add(solitaire.deck.takeCard());
+                return;
+            case "DeckTo 6":
+                solitaire.list[5].add(solitaire.deck.takeCard());
+                return;
+            case "DeckTo 7":
+                solitaire.list[6].add(solitaire.deck.takeCard());
+                return;
             case "Link":
             case "Send":
             case "moves":
                 System.out.println(moves());
                 return;
             case "Restart":
-                startGame();
+                solitaire = new Solitaire();
                 return;
             case "quit":
                 System.exit(0);
@@ -104,18 +173,18 @@ public class Solitaire {
 
     private static String gameDetails() {
         String game = //"Card Lists: " + solitaire.deck.getTail();
-                "// CardDeck: "+ solitaire.deck.isEmptyString() +"  // Open Card: "+solitaire.deck.getTail() +
-                        "\n// CardStacks: "+solitaire.stacks[0].viewTop()+" " +solitaire.stacks[1].viewTop() + " "  + solitaire.stacks[2].viewTop() + " "+solitaire.stacks[3].viewTop()
-                            +"\n// CardLists: \n// 1: "+ solitaire.list[0].toString()+"\n// 2: "+solitaire.list[1].toString()+"\n// 3: "+solitaire.list[3].toString() + "\n// 4:"+solitaire.list[4].toString()+"\n// 5: "
-                                +solitaire.list[5].toString()+"\n// 6: "+solitaire.list[6].toString();
-
+                "// CardDeck: " + solitaire.deck.isEmptyString() + "  // Open Card: " + solitaire.deck.getTail() +
+                        "\n// CardStacks: " + solitaire.stacks[0].viewTop() + " " + solitaire.stacks[1].viewTop() + " " + solitaire.stacks[2].viewTop() + " " + solitaire.stacks[3].viewTop()
+                        + "\n// CardLists: \n// 1: " + solitaire.list[0].toString() + "\n// 2: " + solitaire.list[1].toString() + "\n// 3: " + solitaire.list[2].toString() + "\n// 4: " + solitaire.list[3].toString() + "\n// 5: "
+                        + solitaire.list[4].toString() + "\n// 6: " + solitaire.list[5].toString() + "\n// 7: " + solitaire.list[6].toString();
 
 
         return game;
     }
 
     public static String moves() {
-        String moves = ("\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
+        String moves = ("\n-- DrawCard: Open the next card on the card deck.\n" +
+                "\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
                 "DeckTo 3 moves the card that is currently open in the card deck to the third list.\n" +
                 "\n-- Link c x: Suppose c is a revealed card in a card list, and 1 ?x? 7. This command\n" +
                 "moves all cards below and including c in the same list to the xth list. For example the\n" +
