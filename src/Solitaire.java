@@ -25,7 +25,6 @@ public class Solitaire {
         stacks = new CardStack[4];
         deck = new CardDeck();
         deck.init();
-        System.out.println(deck.toString());
         deck.fisherYatesShuffle();
 
         stacks[0] = new CardStack();
@@ -52,7 +51,6 @@ public class Solitaire {
                 list[i].add(list[i].size(), deck.takeCard());
             }
         }
-        System.out.println(deck.size());
     }
 
     //Should create a gui then start the game
@@ -80,13 +78,34 @@ public class Solitaire {
 
     // executeCommand(String commmand): Perform whatever command indicates if the rules allow it and return a success message. If the command is invalid, return a warning instead.
     public static void executeCommand(String command) {
-
         String[] s = command.split(" ");
-//        System.out.println(s[0].toString());
-//        System.out.println(s[1].toString());
 
-        if(s[0] == "Send") {
-            System.out.println("yussssss");
+        if(s[0].equalsIgnoreCase("Send")) {
+            if(s[1].contains("CLUBS")) {
+                String[] card = s[1].split("(?<=S)");
+                Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
+                solitaire.stacks[0].add(c);
+
+
+            }
+            if(s[1].contains("SPADES")) {
+                String[] card = s[1].split("(?<=S)");
+                card[0] = "SPADES";
+                card[1] = card[2];
+            }
+            if(s[1].contains("HEARTS")) {
+                String[] card = s[1].split("(?<=S)");
+                System.out.println(card[0]);
+                System.out.println(card[1]);
+            }
+            if(s[1].contains("DIAMONDS")) {
+                String[] card = s[1].split("(?<=S)");
+                System.out.println(card[0]);
+                System.out.println(card[1]);
+            }
+
+
+            return;
         }
 
 
@@ -96,25 +115,25 @@ public class Solitaire {
                 solitaire.deck.drawCard();
                 return;
             case "DeckTo 1":
-                solitaire.list[0].add(solitaire.deck.takeCard());
+                solitaire.list[0].add(solitaire.list[0].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 2":
-                solitaire.list[1].add(solitaire.deck.takeCard());
+                solitaire.list[1].add(solitaire.list[1].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 3":
-                solitaire.list[2].add(solitaire.deck.takeCard());
+                solitaire.list[2].add(solitaire.list[2].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 4":
-                solitaire.list[3].add(solitaire.deck.takeCard());
+                solitaire.list[3].add(solitaire.list[3].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 5":
-                solitaire.list[4].add(solitaire.deck.takeCard());
+                solitaire.list[4].add(solitaire.list[4].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 6":
-                solitaire.list[5].add(solitaire.deck.takeCard());
+                solitaire.list[5].add(solitaire.list[5].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 7":
-                solitaire.list[6].add(solitaire.deck.takeCard());
+                solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
                 return;
             case "Link":
             case "Send":

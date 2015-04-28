@@ -27,6 +27,9 @@ public class Card<E> {
 
 
 
+
+
+
         public int getCardIndex() {
             return cardIndex;
         }
@@ -108,11 +111,26 @@ public class Card<E> {
             ACE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(
                     9), TEN(10), JACK(11), QUEEN(12), KING(13);
 
-            int x;
+            private int x;
 
             CardNum(int index) {
                 x = index;
             }
+
+            public static CardNum convertToEnum(String s) {
+                    int i = Integer.parseInt(s);
+                    if (s != null) {
+                        for (CardNum b : CardNum.values()) {
+                            if (i == b.x) {
+                                return b;
+                            }
+                        }
+                    }
+                    return null;
+                }
+
+
+
 
             public int getNum() {
                 return this.x;
