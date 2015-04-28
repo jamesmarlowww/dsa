@@ -91,62 +91,66 @@ public class Solitaire {
                     solitaire.list[0].add(solitaire.list[0].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 2":
-                solitaire.list[1].add(solitaire.list[1].size(),solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[1], solitaire.deck.getTailCard()))
+                     solitaire.list[1].add(solitaire.list[1].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 3":
-                solitaire.list[2].add(solitaire.list[2].size(),solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[2], solitaire.deck.getTailCard()))
+                    solitaire.list[2].add(solitaire.list[2].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 4":
-                solitaire.list[3].add(solitaire.list[3].size(),solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[3], solitaire.deck.getTailCard()))
+                    solitaire.list[3].add(solitaire.list[3].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 5":
-                solitaire.list[4].add(solitaire.list[4].size(),solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[4], solitaire.deck.getTailCard()))
+                     solitaire.list[4].add(solitaire.list[4].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 6":
-                solitaire.list[5].add(solitaire.list[5].size(), solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[5], solitaire.deck.getTailCard()))
+                     solitaire.list[5].add(solitaire.list[5].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 7":
-                solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[6], solitaire.deck.getTailCard()))
+                     solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
                 return;
             case "Link": return;
             case "Send": return;
-            case "moves":
-                System.out.println(moves());
-                return;
-            case "Restart":
-                solitaire = new Solitaire();
-                return;
-            case "quit":
-                System.exit(0);
-                return;
-            case "Quit":
-                System.exit(0);
-                return;
+            case "d": solitaire.deck.drawCard(); return;
+            case "moves": System.out.println(moves()); return;
+            case "Restart": solitaire = new Solitaire(); return;
+            case "quit": System.exit(0); return;
+            case "Quit": System.exit(0); return;
             default:
                 System.out.println("\nPlease enter a valid command\n"); return;
         }
-
-
     }
 
 
     private static boolean checkMovePossible(CardList newList, Card card) {
         boolean result = false;
         if(newList.isEmpty()) {
-            return result;
+            return true;
+
         }
+
+        System.out.println("not empty");
 
         Card newPos = newList.getTailCard();
 
         if(card.colour() != newPos.colour()) {
+            System.out.println("in color check statement");
             if(card.getValue()==newPos.getValue()+1) {
                 result = true;
-            }
+                System.out.println("in 2nd if loop");
+
+            } else System.out.println("value comarisson failed. card: "+ card.getValue() + " newPos: "+ newPos.getValue());
 
         }
 
         return result;
     }
+
     //deletes card if true
     private static boolean hasCard(Card card) {
         for(CardList cl : solitaire.list) {
