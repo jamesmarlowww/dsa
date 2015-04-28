@@ -70,8 +70,6 @@ public class Solitaire {
 
             executeCommand(store);
         }
-
-
     }
 
 
@@ -79,41 +77,9 @@ public class Solitaire {
     public static void executeCommand(String command) {
         String[] s = command.split(" ");
 
+        sendToStack(s);
 
-        if(s[0].equalsIgnoreCase("Send")) {
 
-            if(s[1].contains("CLUBS")) {
-                String[] card = s[1].split("(?<=S)");
-                Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    if(solitaire.stacks[0].add(c))
-                        getAndDeleteTail(c);
-
-            }
-            if(s[1].contains("SPADES")) {
-                String[] card = s[1].split("(?<=S)");
-                //card[0] = "SPADES";
-                card[1] = card[2];
-
-                Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    solitaire.stacks[1].add(c);
-            }
-            if(s[1].contains("HEARTS")) {
-                String[] card = s[1].split("(?<=S)");
-                Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    solitaire.stacks[2].add(c);
-            }
-            if(s[1].contains("DIAMONDS")) {
-                String[] card = s[1].split("(?<=S)");
-                Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    solitaire.stacks[3].add(c);
-            }
-
-            return;
-        }
 
 
         switch (command) {
@@ -121,7 +87,8 @@ public class Solitaire {
                 solitaire.deck.drawCard();
                 return;
             case "DeckTo 1":
-                solitaire.list[0].add(solitaire.list[0].size(),solitaire.deck.takeCard());
+                if(checkMovePossible(solitaire.list[0], solitaire.deck.getTailCard()))
+                    solitaire.list[0].add(solitaire.list[0].size(),solitaire.deck.takeCard());
                 return;
             case "DeckTo 2":
                 solitaire.list[1].add(solitaire.list[1].size(),solitaire.deck.takeCard());
@@ -141,8 +108,8 @@ public class Solitaire {
             case "DeckTo 7":
                 solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
                 return;
-            case "Link":
-            case "Send":
+            case "Link": return;
+            case "Send": return;
             case "moves":
                 System.out.println(moves());
                 return;
@@ -161,7 +128,25 @@ public class Solitaire {
 
 
     }
-    //doesnt work with diamonds for some reason
+
+
+    private static boolean checkMovePossible(CardList newList, Card card) {
+        boolean result = false;
+        if(newList.isEmpty()) {
+            return result;
+        }
+
+        Card newPos = newList.getTailCard();
+
+        if(card.colour() != newPos.colour()) {
+            if(card.getValue()==newPos.getValue()+1) {
+                result = true;
+            }
+
+        }
+
+        return result;
+    }
     //deletes card if true
     private static boolean hasCard(Card card) {
         for(CardList cl : solitaire.list) {
@@ -185,6 +170,47 @@ public class Solitaire {
                 cl.moveTail();
 
             }
+        }
+    }
+
+    private static void sendToStack(String[] s) {
+        if(s[0].equalsIgnoreCase("Send")) {
+
+            if(s[1].contains("CLUBS")) {
+                String[] card = s[1].split("(?<=S)");
+                Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    if(solitaire.stacks[0].add(c))
+                        getAndDeleteTail(c);
+
+            }
+            if(s[1].contains("SPADES")) {
+                String[] card = s[1].split("(?<=S)");
+                //card[0] = "SPADES";
+                card[1] = card[2];
+
+                Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    if(solitaire.stacks[1].add(c))
+                        getAndDeleteTail(c);
+            }
+            if(s[1].contains("HEARTS")) {
+                String[] card = s[1].split("(?<=S)");
+                Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    if(solitaire.stacks[2].add(c))
+                        getAndDeleteTail(c);
+
+            }
+            if(s[1].contains("DIAMONDS")) {
+                String[] card = s[1].split("(?<=S)");
+                Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    if(solitaire.stacks[3].add(c))
+                        getAndDeleteTail(c);
+            }
+
+            return;
         }
     }
 
@@ -215,6 +241,5 @@ public class Solitaire {
         return moves;
 
     }
-
 
 }

@@ -115,6 +115,7 @@ public class CardList<E> implements AbstractList<E> {
     public String toString() {
         String s = "";
         Card pointer = tailCard;
+        if(tailCard ==null) return "Empty";
         int x = count;
         while (pointer != null && x > 0) {
             s += pointer + ", ";
@@ -127,7 +128,6 @@ public class CardList<E> implements AbstractList<E> {
         for(String str : splitString) {
             newString+=","+str;
         }
-
         return newString;
     }
 

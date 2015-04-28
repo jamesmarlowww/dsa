@@ -31,6 +31,10 @@ public class CardDeck<E> implements AbstractList<E> {
         return temp;
     }
 
+    public Card getTailCard() {
+        return tailCard;
+    }
+
 
 
 
