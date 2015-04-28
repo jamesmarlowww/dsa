@@ -13,7 +13,6 @@ public class Solitaire {
     public static void main(String[] args) {
         solitaire = new Solitaire();
 
-
         showGUI(solitaire);
         startGame();
 
@@ -68,8 +67,8 @@ public class Solitaire {
             System.out.println("\n// Your next move: ");
             Scanner scan = new Scanner(System.in);
             String store = scan.nextLine();
-            executeCommand(store);
 
+            executeCommand(store);
         }
 
 
@@ -80,34 +79,41 @@ public class Solitaire {
     public static void executeCommand(String command) {
         String[] s = command.split(" ");
 
+
         if(s[0].equalsIgnoreCase("Send")) {
+
             if(s[1].contains("CLUBS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
-                solitaire.stacks[0].add(c);
-
+                if(hasCard(c))
+                    if(solitaire.stacks[0].add(c))
+                        getAndDeleteTail(c);
 
             }
             if(s[1].contains("SPADES")) {
                 String[] card = s[1].split("(?<=S)");
-                card[0] = "SPADES";
+                //card[0] = "SPADES";
                 card[1] = card[2];
+
+                Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    solitaire.stacks[1].add(c);
             }
             if(s[1].contains("HEARTS")) {
                 String[] card = s[1].split("(?<=S)");
-                System.out.println(card[0]);
-                System.out.println(card[1]);
+                Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    solitaire.stacks[2].add(c);
             }
             if(s[1].contains("DIAMONDS")) {
                 String[] card = s[1].split("(?<=S)");
-                System.out.println(card[0]);
-                System.out.println(card[1]);
+                Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1);
+                if(hasCard(c))
+                    solitaire.stacks[3].add(c);
             }
-
 
             return;
         }
-
 
 
         switch (command) {
@@ -150,12 +156,37 @@ public class Solitaire {
                 System.exit(0);
                 return;
             default:
-                System.out.println("Please enter a valid command\n");
+                System.out.println("\nPlease enter a valid command\n"); return;
         }
 
 
     }
+    //doesnt work with diamonds for some reason
+    //deletes card if true
+    private static boolean hasCard(Card card) {
+        for(CardList cl : solitaire.list) {
+            Card c = cl.getTailCard();
+            if(card.getValue() == c.getValue())
+                System.out.println("first statement");
+             if(card.getSuit() == c.getSuit()) {
+                 System.out.println("second loop");
+                 return true;
+            }
+        }
+        System.out.println("\nYou can only send a tail card to a stack\n");
+        return false;
+    }
 
+    //use after hasCard(). If it is possible to add card to stack
+    private  static void getAndDeleteTail(Card card) {
+        for(CardList cl : solitaire.list) {
+            Card c = cl.getTailCard();
+            if(card.getValue() == c.getValue() && card.getSuit() == c.getSuit()) {
+                cl.moveTail();
+
+            }
+        }
+    }
 
     private static String gameDetails() {
         String game = //"Card Lists: " + solitaire.deck.getTail();

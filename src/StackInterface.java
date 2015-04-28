@@ -3,7 +3,7 @@
  */
 public interface StackInterface<E> {
 
-    public void add(Card c);
+    public boolean add(Card c);
 
     public String toString();
 

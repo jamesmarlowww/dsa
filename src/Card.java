@@ -130,8 +130,6 @@ public class Card<E> {
                 }
 
 
-
-
             public int getNum() {
                 return this.x;
             }

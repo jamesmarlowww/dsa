@@ -5,13 +5,24 @@
  */
 public class CardStack<E> implements StackInterface<E> {
     private CardList stack;
+    private int count;
 
     public CardStack() {
         stack = new CardList();
+        count = 0;
     }
 
-    public void add(Card c) {
-        stack.add(c);
+    public boolean add(Card c) {
+        boolean result = false;
+        if(c.getValue()==count+1) {
+            stack.add(c);
+            count++;
+            System.out.println("\nSuccess!\n");
+            result = true;
+        } else {
+            System.out.println("\nTry again, you must add cards in ascending order\n");
+        }
+        return result;
     }
 
     public String toString() {
@@ -21,13 +32,16 @@ public class CardStack<E> implements StackInterface<E> {
     public String viewTop() {
         String s = "Empty";
         try{
-            if(stack.tailCard.toString() == null) return s;
+            if(stack.tailCard.toString() == null) {
+                return s;
+            } else {
+
+            }
         } catch (NullPointerException n) {
             return s;
         }
 
-        if(stack.tailCard.toString() == null) return s;
-        else return stack.tailCard.toString();
+        return stack.tailCard.toString();
     }
 
 

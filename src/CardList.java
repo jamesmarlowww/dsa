@@ -26,15 +26,24 @@ public class CardList<E> implements AbstractList<E> {
     }
 
     public boolean isEmpty() {
-
         if (count > 0)
             return false;
         else
             return true;
-
-
     }
 
+
+    public boolean hasCard(Card card) {
+        Card pointer = tailCard;
+
+        while(pointer != null) {
+            if(card.getValue() == pointer.getValue() && card.getSuit() == pointer.getSuit()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public void init() {
         CardList<Card> newCardList = new CardList<>();
@@ -92,32 +101,15 @@ public class CardList<E> implements AbstractList<E> {
         return cards;
     }
 
-    public void test(CardList cardList) {
-        System.out.println("dfjaklsjkf ajksdfklsajf");
-    }
-
-//    public void link(CardList cardList) {
-//        System.out.println("sdfdsf");
-//        int x = cardList.count;
-//
-//        while(x>0) {
-//            System.out.println("sdfdsf");
-//            cards.add(cardList.tailCard);
-//            cardList.tailCard = cardList.tailCard.next;
-//            tailCard = tailCard.next;
-//
-//            x--;
-//        }
-
-       // return cards;
-//    }
-
-
     public Card moveTail() {
+        Card temp = tailCard;
         tailCard = tailCard.next;
         count--;
-        return tailCard;
+        return temp;
     }
+
+
+
 
     @Override
     public String toString() {
@@ -129,7 +121,14 @@ public class CardList<E> implements AbstractList<E> {
             pointer = pointer.next;
             x--;
         }
-        return s;
+
+        String newString ="";
+        String[] splitString = s.split(",");
+        for(String str : splitString) {
+            newString+=","+str;
+        }
+
+        return newString;
     }
 
     public void add(int i, Card newCard)
@@ -145,15 +144,11 @@ public class CardList<E> implements AbstractList<E> {
             Card<E> previous = tailCard;
             Card<E> pointer = tailCard.next;
             int x = 0;
-            while(i>0)
-            {
-
+            while(i>0) {
                 previous = pointer;
                 pointer = pointer.next;
                 i--;
             }
-
-
             newCard.next = pointer;
             previous.next = newCard;
         }
