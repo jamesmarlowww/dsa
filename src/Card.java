@@ -9,6 +9,7 @@ public class Card<E> {
         private Color cardColor;
         private int cardValue;
         public Card<E> next;
+        private boolean show;
 
 
         public Card(Suit suit, CardNum num, int cardIndex) {
@@ -16,6 +17,7 @@ public class Card<E> {
             this.cardValue = num.getNum();
             this.cardColor = suit.getCol();
             this.cardIndex = cardIndex;
+            show = true;
         }
 
         public Card(Card card) {
@@ -23,14 +25,20 @@ public class Card<E> {
             this.cardValue = card.getValue();
             this.cardColor = card.colour();
             this.cardIndex = card.getCardIndex();
+            show = true;
         }
 
 
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
+    public boolean getShow() {
+        return show;
+    }
 
 
-
-
-        public int getCardIndex() {
+    public int getCardIndex() {
             return cardIndex;
         }
 

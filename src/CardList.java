@@ -40,12 +40,14 @@ public class CardList<E> implements AbstractList<E> {
 
     public boolean getIndex(Card card) {
         Card pointer = tailCard;
-
-        while (pointer != null) {
+        int i = 60;
+        while (pointer != null && i >0) {
             if (card.getValue() == pointer.getValue() && card.getSuit() == pointer.getSuit()) {
                 return true;
             }
-
+            pointer = pointer.next;
+            i--;
+            System.out.println(pointer.toString());
         }
 
         return false;
@@ -109,7 +111,7 @@ public class CardList<E> implements AbstractList<E> {
         return cards;
     }
 
-    public int disttanceFromTail() {
+    public int distanceFromTail() {
         Card pointer = tailCard;
         int num = 0;
         while (pointer != null) {
@@ -170,6 +172,7 @@ public class CardList<E> implements AbstractList<E> {
 
     public Card moveTail() {
         Card temp = tailCard;
+        tailCard.next.setShow(false);
         tailCard = tailCard.next;
         count--;
         return temp;
@@ -185,7 +188,13 @@ public class CardList<E> implements AbstractList<E> {
         if (tailCard == null) return "Empty";
         int x = count;
         while (pointer != null && x > 0) {
-            s += pointer + ", ";
+            if(pointer.getShow()) {
+
+                s+= "BACK, ";
+            } else  {
+                s += pointer + ", ";
+            }
+
             pointer = pointer.next;
             x--;
         }

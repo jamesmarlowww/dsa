@@ -16,6 +16,7 @@ public class Solitaire {
         showGUI(solitaire);
         startGame();
 
+
     }
 
     public Solitaire() {
@@ -45,8 +46,13 @@ public class Solitaire {
 
         int x = 1;
         for (int i = 0; i < 7; i++) {
+            boolean reached = false;
             for (int j = i + 1; j > 0; j--) {
                 list[i].add(list[i].size(), deck.takeCard());
+                list[i].getTailCard().setShow(false);
+                reached = true;
+
+
             }
         }
     }
@@ -153,10 +159,10 @@ public class Solitaire {
 
                 int listNum = Integer.parseInt(s[2]);
                 listNum--; //changes list shown number to number in list[].
-                if (solitaire.list[listNum].hasCard(c)) //
+                if (solitaire.list[listNum].getIndex(c)) //
                     if (checkMovePossible(listNum, c)) {
                         System.out.println("its working\n");
-                        solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].disttanceFromTail()));
+                        solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].distanceFromTail()));
                     }
 
             }
