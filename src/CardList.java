@@ -1,3 +1,8 @@
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.List;
+
 /**
  * Created by James on 4/21/2015.
  */
@@ -111,8 +116,10 @@ public class CardList<E> implements AbstractList<E> {
 
 
 
+    //prints list with tail at the end
     @Override
     public String toString() {
+        //list with tail at start
         String s = "";
         Card pointer = tailCard;
         if(tailCard ==null) return "Empty";
@@ -123,13 +130,25 @@ public class CardList<E> implements AbstractList<E> {
             x--;
         }
 
+        //reverse list, so tail is at end
+
         String newString ="";
-        String[] splitString = s.split(",");
-        for(String str : splitString) {
-            newString+=","+str;
+
+        String[] splitString = s.split(" ");
+
+
+        List<String> list = Arrays.asList(splitString);
+        Collections.reverse(list);
+        splitString = (String[]) list.toArray();
+
+        for (String ss: splitString) {
+            newString += ss;
         }
+
+
         return newString;
     }
+
 
     public void add(int i, Card newCard)
     {

@@ -214,9 +214,6 @@ public class CardDeck<E> implements AbstractList<E> {
 
     @Override
     public String toString() {
-
-
-        //works i think
         String s = "";
         Card<E> sn = tailCard.next;
         int x = count;
@@ -227,8 +224,6 @@ public class CardDeck<E> implements AbstractList<E> {
             }
             x--;
         }
-
-
         return s;
     }
 

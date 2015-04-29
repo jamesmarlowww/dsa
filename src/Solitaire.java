@@ -43,10 +43,9 @@ public class Solitaire {
         list[6] = new CardList();
 
 
-
         int x = 1;
-        for (int i = 0; i<7; i++) {
-            for (int j = i+1; j > 0; j--) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = i + 1; j > 0; j--) {
                 list[i].add(list[i].size(), deck.takeCard());
             }
         }
@@ -80,86 +79,98 @@ public class Solitaire {
         sendToStack(s);
 
 
-
-
         switch (command) {
             case "DrawCard":
                 solitaire.deck.drawCard();
                 return;
             case "DeckTo 1":
-                if(checkMovePossible(solitaire.list[0], solitaire.deck.getTailCard()))
-                    solitaire.list[0].add(solitaire.list[0].size(),solitaire.deck.takeCard());
+                if (checkMovePossible(0, solitaire.deck.getTailCard()))
+                    solitaire.list[0].add(solitaire.list[0].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 2":
-                if(checkMovePossible(solitaire.list[1], solitaire.deck.getTailCard()))
-                     solitaire.list[1].add(solitaire.list[1].size(),solitaire.deck.takeCard());
+                if (checkMovePossible(1, solitaire.deck.getTailCard()))
+                    solitaire.list[1].add(solitaire.list[1].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 3":
-                if(checkMovePossible(solitaire.list[2], solitaire.deck.getTailCard()))
-                    solitaire.list[2].add(solitaire.list[2].size(),solitaire.deck.takeCard());
+                if (checkMovePossible(2, solitaire.deck.getTailCard()))
+                    solitaire.list[2].add(solitaire.list[2].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 4":
-                if(checkMovePossible(solitaire.list[3], solitaire.deck.getTailCard()))
-                    solitaire.list[3].add(solitaire.list[3].size(),solitaire.deck.takeCard());
+                if (checkMovePossible(3, solitaire.deck.getTailCard()))
+                    solitaire.list[3].add(solitaire.list[3].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 5":
-                if(checkMovePossible(solitaire.list[4], solitaire.deck.getTailCard()))
-                     solitaire.list[4].add(solitaire.list[4].size(),solitaire.deck.takeCard());
+                if (checkMovePossible(4, solitaire.deck.getTailCard()))
+                    solitaire.list[4].add(solitaire.list[4].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 6":
-                if(checkMovePossible(solitaire.list[5], solitaire.deck.getTailCard()))
-                     solitaire.list[5].add(solitaire.list[5].size(), solitaire.deck.takeCard());
+                if (checkMovePossible(5, solitaire.deck.getTailCard()))
+                    solitaire.list[5].add(solitaire.list[5].size(), solitaire.deck.takeCard());
                 return;
             case "DeckTo 7":
-                if(checkMovePossible(solitaire.list[6], solitaire.deck.getTailCard()))
-                     solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
+                if (checkMovePossible(6, solitaire.deck.getTailCard()))
+                    solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
                 return;
-            case "Link": return;
-            case "Send": return;
-            case "d": solitaire.deck.drawCard(); return;
-            case "moves": System.out.println(moves()); return;
-            case "Restart": solitaire = new Solitaire(); return;
-            case "quit": System.exit(0); return;
-            case "Quit": System.exit(0); return;
+            case "Link":
+                return;
+            case "Send":
+                return;
+            case "d":
+                solitaire.deck.drawCard();
+                return;
+            case "moves":
+                System.out.println(moves());
+                return;
+            case "Restart":
+                solitaire = new Solitaire();
+                return;
+            case "quit":
+                System.exit(0);
+                return;
+            case "Quit":
+                System.exit(0);
+                return;
             default:
-                System.out.println("\nPlease enter a valid command\n"); return;
+                System.out.println("\nPlease enter a valid command\n");
+                return;
         }
     }
 
 
-    private static boolean checkMovePossible(CardList newList, Card card) {
+    private static boolean checkMovePossible(int list, Card card) {
         boolean result = false;
-        if(newList.isEmpty()) {
-            return true;
+        Card newPos = solitaire.list[list].getTailCard();
 
+        if (solitaire.list[list].isEmpty()) {
+            return true;
         }
 
-        System.out.println("not empty");
 
-        Card newPos = newList.getTailCard();
-
-        if(card.colour() != newPos.colour()) {
-            System.out.println("in color check statement");
-            if(card.getValue()==newPos.getValue()+1) {
+        if (card.colour() != newPos.colour()) {
+            if (card.getValue() == newPos.getValue() -1) {
                 result = true;
-                System.out.println("in 2nd if loop");
+                System.out.println("\nMove is possible. Success!\n");
 
-            } else System.out.println("value comarisson failed. card: "+ card.getValue() + " newPos: "+ newPos.getValue());
+            } else {
+                System.out.println("\nThe new card must be one " + card.getValue() + " newPos: " + newPos.getValue());
+            }
 
+        } else {
+            System.out.println("Cards are the same color. Cannot move card"+ card.toString()+newPos.toString());
         }
 
         return result;
     }
 
-    //deletes card if true
+    //check if any of the list has card as tail.
     private static boolean hasCard(Card card) {
-        for(CardList cl : solitaire.list) {
+        for (CardList cl : solitaire.list) {
             Card c = cl.getTailCard();
-            if(card.getValue() == c.getValue())
-                System.out.println("first statement");
-             if(card.getSuit() == c.getSuit()) {
-                 System.out.println("second loop");
-                 return true;
+            if (card.getValue() == c.getValue())
+             //   System.out.println("first statement");
+            if (card.getSuit() == c.getSuit()) {
+                //System.out.println("second loop");
+                return true;
             }
         }
         System.out.println("\nYou can only send a tail card to a stack\n");
@@ -167,10 +178,10 @@ public class Solitaire {
     }
 
     //use after hasCard(). If it is possible to add card to stack
-    private  static void getAndDeleteTail(Card card) {
-        for(CardList cl : solitaire.list) {
+    private static void getAndDeleteTail(Card card) {
+        for (CardList cl : solitaire.list) {
             Card c = cl.getTailCard();
-            if(card.getValue() == c.getValue() && card.getSuit() == c.getSuit()) {
+            if (card.getValue() == c.getValue() && card.getSuit() == c.getSuit()) {
                 cl.moveTail();
 
             }
@@ -178,39 +189,39 @@ public class Solitaire {
     }
 
     private static void sendToStack(String[] s) {
-        if(s[0].equalsIgnoreCase("Send")) {
+        if (s[0].equalsIgnoreCase("Send")) {
 
-            if(s[1].contains("CLUBS")) {
+            if (s[1].contains("CLUBS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    if(solitaire.stacks[0].add(c))
+                if (hasCard(c))
+                    if (solitaire.stacks[0].add(c))
                         getAndDeleteTail(c);
 
             }
-            if(s[1].contains("SPADES")) {
+            if (s[1].contains("SPADES")) {
                 String[] card = s[1].split("(?<=S)");
                 //card[0] = "SPADES";
                 card[1] = card[2];
 
                 Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    if(solitaire.stacks[1].add(c))
+                if (hasCard(c))
+                    if (solitaire.stacks[1].add(c))
                         getAndDeleteTail(c);
             }
-            if(s[1].contains("HEARTS")) {
+            if (s[1].contains("HEARTS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    if(solitaire.stacks[2].add(c))
+                if (hasCard(c))
+                    if (solitaire.stacks[2].add(c))
                         getAndDeleteTail(c);
 
             }
-            if(s[1].contains("DIAMONDS")) {
+            if (s[1].contains("DIAMONDS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1);
-                if(hasCard(c))
-                    if(solitaire.stacks[3].add(c))
+                if (hasCard(c))
+                    if (solitaire.stacks[3].add(c))
                         getAndDeleteTail(c);
             }
 
