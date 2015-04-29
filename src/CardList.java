@@ -38,13 +38,14 @@ public class CardList<E> implements AbstractList<E> {
     }
 
 
-    public boolean hasCard(Card card) {
+    public boolean getIndex(Card card) {
         Card pointer = tailCard;
 
-        while(pointer != null) {
-            if(card.getValue() == pointer.getValue() && card.getSuit() == pointer.getSuit()) {
+        while (pointer != null) {
+            if (card.getValue() == pointer.getValue() && card.getSuit() == pointer.getSuit()) {
                 return true;
             }
+
         }
 
         return false;
@@ -91,8 +92,10 @@ public class CardList<E> implements AbstractList<E> {
 
     }
 
+    //returns the second half of list
+    //not the  real index. Index is how many cards from the tail
     public CardList cut(int index) {
-        int i = 52 - index;
+        int i = count - index;
         Card<E> pointer = tailCard;
         while (index > 0) {
             index--;
@@ -106,6 +109,65 @@ public class CardList<E> implements AbstractList<E> {
         return cards;
     }
 
+    public int disttanceFromTail() {
+        Card pointer = tailCard;
+        int num = 0;
+        while (pointer != null) {
+            num++;
+            pointer = pointer.next;
+        }
+        return num;
+    }
+
+
+    public CardList linkOld(CardList cardList) {
+        while (cardList.tailCard != null) {
+            cards.add(count, cardList.getHead());
+            cardList.tailCard = cardList.tailCard.next;
+        }
+
+
+        return cards;
+    }
+
+    public void link(CardList otherList) {
+        Stack<Card> stack = new Stack<>();
+        Card finger = cards.tailCard;
+        while (finger.hasNext()) {
+            stack.push(finger);
+            finger = finger.next;
+        }
+        while (stack.size() > 0) {
+            Card temp = stack.pop();
+            otherList.cards.add(cards.size(), temp);
+        }
+    }
+
+    public Card getHead() {
+        Card pointer = tailCard;
+        while (pointer.next != null) {
+            pointer = pointer.next;
+        }
+
+        return pointer;
+    }
+
+    public boolean hasCard(Card c) {
+        boolean result = false;
+        Card pointer = tailCard;
+        while (pointer != null) {
+            if (c.compareTo(pointer)) {
+                result = true;
+            }
+            pointer = pointer.next;
+            System.out.println(result);
+
+        }
+        return result;
+
+    }
+
+
     public Card moveTail() {
         Card temp = tailCard;
         tailCard = tailCard.next;
@@ -114,15 +176,13 @@ public class CardList<E> implements AbstractList<E> {
     }
 
 
-
-
     //prints list with tail at the end
     @Override
     public String toString() {
         //list with tail at start
         String s = "";
         Card pointer = tailCard;
-        if(tailCard ==null) return "Empty";
+        if (tailCard == null) return "Empty";
         int x = count;
         while (pointer != null && x > 0) {
             s += pointer + ", ";
@@ -132,8 +192,7 @@ public class CardList<E> implements AbstractList<E> {
 
         //reverse list, so tail is at end
 
-        String newString ="";
-
+        String newString = "";
         String[] splitString = s.split(" ");
 
 
@@ -141,7 +200,7 @@ public class CardList<E> implements AbstractList<E> {
         Collections.reverse(list);
         splitString = (String[]) list.toArray();
 
-        for (String ss: splitString) {
+        for (String ss : splitString) {
             newString += ss;
         }
 
@@ -150,20 +209,16 @@ public class CardList<E> implements AbstractList<E> {
     }
 
 
-    public void add(int i, Card newCard)
-    {
-        if(count<i || i < 0) return;
+    public void add(int i, Card newCard) {
+        if (count < i || i < 0) return;
 
-        if (isEmpty())
-        {
+        if (isEmpty()) {
             tailCard = newCard;
-        }
-        else
-        {
+        } else {
             Card<E> previous = tailCard;
             Card<E> pointer = tailCard.next;
             int x = 0;
-            while(i>0) {
+            while (i > 0) {
                 previous = pointer;
                 pointer = pointer.next;
                 i--;

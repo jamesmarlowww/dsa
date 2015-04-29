@@ -53,7 +53,11 @@ public class Card<E> {
         }
 
 
-
+        public boolean hasNext() {
+            boolean result = false;
+            if(next != null) result = true;
+            return result;
+        }
 
 
 
@@ -67,6 +71,15 @@ public class Card<E> {
          */
         public Color colour() {
             return cardColor;
+        }
+
+        public boolean compareTo(Card c) {
+            boolean result = false;
+            if(cardValue == c.cardValue && suit == c.getSuit()) {
+                result = true;
+            }
+
+            return result;
         }
 
 
@@ -100,6 +113,19 @@ public class Card<E> {
 
             Suit(Color c) {
                 this.x = c;
+            }
+
+            public static Suit convertStringToEnum(String s) {
+                Suit suit = Suit.CLUBS;
+
+                if(s.equals("SPADES")) suit = Suit.SPADES;
+                if(s.equals("DIAMONDS")) suit = Suit.DIAMONDS;
+                if(s.equals("HEARTS")) suit = Suit.HEARTS;
+                if(s.equals("CLUBS")) {
+                    suit = Suit.CLUBS;
+                }
+
+                return suit;
             }
 
             public Color getCol() {

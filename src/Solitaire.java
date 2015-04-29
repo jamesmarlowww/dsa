@@ -76,14 +76,15 @@ public class Solitaire {
     public static void executeCommand(String command) {
         String[] s = command.split(" ");
 
-        sendToStack(s);
+        if (sendToStack(s)) return;
+        if(link(s)) return;
 
 
         switch (command) {
             case "DrawCard":
                 solitaire.deck.drawCard();
                 return;
-            case "DeckTo 1":
+            case "DeckTo 1": ///these need to be refactored
                 if (checkMovePossible(0, solitaire.deck.getTailCard()))
                     solitaire.list[0].add(solitaire.list[0].size(), solitaire.deck.takeCard());
                 return;
@@ -136,125 +137,159 @@ public class Solitaire {
         }
     }
 
-
-    private static boolean checkMovePossible(int list, Card card) {
+    private static boolean link(String[] s) {
         boolean result = false;
-        Card newPos = solitaire.list[list].getTailCard();
 
-        if (solitaire.list[list].isEmpty()) {
-            return true;
-        }
+        if (s[0].equalsIgnoreCase("LINK")) {
 
+            if (s[1].contains("CLUBS")|| s[1].contains("HEARTS")|| (s[1].contains("DIAMONDS"))|| s[1].contains("SPADES")) {
+                String[] card = s[1].split("(?<=S)");
+                if(card[0].equals("S")) {
+                    card[0] = "SPADES";
+                    card[1] = card[2];
 
-        if (card.colour() != newPos.colour()) {
-            if (card.getValue() == newPos.getValue() -1) {
-                result = true;
-                System.out.println("\nMove is possible. Success!\n");
+                }
+                Card c = new Card(Card.Suit.convertStringToEnum(card[0]), Card.CardNum.convertToEnum(card[1]), 1);
 
-            } else {
-                System.out.println("\nThe new card must be one " + card.getValue() + " newPos: " + newPos.getValue());
+                int listNum = Integer.parseInt(s[2]);
+                listNum--; //changes list shown number to number in list[].
+                if (solitaire.list[listNum].hasCard(c)) //
+                    if (checkMovePossible(listNum, c)) {
+                        System.out.println("its working\n");
+                        solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].disttanceFromTail()));
+                    }
+
             }
-
-        } else {
-            System.out.println("Cards are the same color. Cannot move card"+ card.toString()+newPos.toString());
         }
-
         return result;
+
     }
 
-    //check if any of the list has card as tail.
-    private static boolean hasCard(Card card) {
-        for (CardList cl : solitaire.list) {
-            Card c = cl.getTailCard();
-            if (card.getValue() == c.getValue())
-             //   System.out.println("first statement");
-            if (card.getSuit() == c.getSuit()) {
-                //System.out.println("second loop");
+
+        private static boolean checkMovePossible ( int list, Card card){
+            boolean result = false;
+
+            Card newPos = solitaire.list[list].getTailCard();
+
+            if (solitaire.list[list].isEmpty()) {
                 return true;
             }
+
+            if (card.colour() != newPos.colour()) {
+                if (card.getValue() == newPos.getValue() - 1) {
+                    result = true;
+                    System.out.println("\nMove is possible. Success!\n");
+
+                } else {
+                    System.out.println("\nThe new card must be one smaller than orignal\n"+newPos.toString()+ card.toString());
+                }
+
+            } else {
+                System.out.println("\nCards are the same color. Cannot move card\n");
+            }
+
+            return result;
         }
-        System.out.println("\nYou can only send a tail card to a stack\n");
-        return false;
-    }
 
-    //use after hasCard(). If it is possible to add card to stack
-    private static void getAndDeleteTail(Card card) {
-        for (CardList cl : solitaire.list) {
-            Card c = cl.getTailCard();
-            if (card.getValue() == c.getValue() && card.getSuit() == c.getSuit()) {
-                cl.moveTail();
+        //check if any of the list has card as tail.
+        private static boolean hasCard (Card card){
+            for (CardList cl : solitaire.list) {
+                Card c = cl.getTailCard();
+                if (card.getValue() == c.getValue())
+                    //   System.out.println("first statement");
+                    if (card.getSuit() == c.getSuit()) {
+                        //System.out.println("second loop");
+                        return true;
+                    }
+            }
+            System.out.println("\nYou can only send a tail card to a stack\n");
+            return false;
+        }
 
+        //use after hasCard(). If it is possible to add card to stack
+        private static void getAndDeleteTail (Card card){
+            for (CardList cl : solitaire.list) {
+                Card c = cl.getTailCard();
+                if (card.getValue() == c.getValue() && card.getSuit() == c.getSuit()) {
+                    cl.moveTail();
+
+                }
             }
         }
-    }
 
-    private static void sendToStack(String[] s) {
-        if (s[0].equalsIgnoreCase("Send")) {
+        //needs to be refactord
+        private static boolean sendToStack (String[]s){
+            boolean result = false;
+            if (s[0].equalsIgnoreCase("Send")) {
 
-            if (s[1].contains("CLUBS")) {
-                String[] card = s[1].split("(?<=S)");
-                Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
-                if (hasCard(c))
-                    if (solitaire.stacks[0].add(c))
-                        getAndDeleteTail(c);
+                if (s[1].contains("CLUBS")) {
+                    String[] card = s[1].split("(?<=S)");
+                    Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1);
+                    if (hasCard(c))
+                        if (solitaire.stacks[0].add(c))
+                            getAndDeleteTail(c);
+                    result = true;
+
+                }
+                if (s[1].contains("SPADES")) {
+                    String[] card = s[1].split("(?<=S)");
+                    card[0] = "SPADES";
+                    card[1] = card[2];
+                    Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1);
+                    if (hasCard(c))
+                        if (solitaire.stacks[1].add(c))
+                            getAndDeleteTail(c);
+                    result = true;
+                }
+                if (s[1].contains("HEARTS")) {
+                    String[] card = s[1].split("(?<=S)");
+                    Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1);
+                    if (hasCard(c))
+                        if (solitaire.stacks[2].add(c))
+                            getAndDeleteTail(c);
+                    result = true;
+
+                }
+                if (s[1].contains("DIAMONDS")) {
+                    String[] card = s[1].split("(?<=S)");
+                    Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1);
+                    if (hasCard(c))
+                        if (solitaire.stacks[3].add(c))
+                            getAndDeleteTail(c);
+                    result = true;
+                }
+
 
             }
-            if (s[1].contains("SPADES")) {
-                String[] card = s[1].split("(?<=S)");
-                //card[0] = "SPADES";
-                card[1] = card[2];
-
-                Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1);
-                if (hasCard(c))
-                    if (solitaire.stacks[1].add(c))
-                        getAndDeleteTail(c);
-            }
-            if (s[1].contains("HEARTS")) {
-                String[] card = s[1].split("(?<=S)");
-                Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1);
-                if (hasCard(c))
-                    if (solitaire.stacks[2].add(c))
-                        getAndDeleteTail(c);
-
-            }
-            if (s[1].contains("DIAMONDS")) {
-                String[] card = s[1].split("(?<=S)");
-                Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1);
-                if (hasCard(c))
-                    if (solitaire.stacks[3].add(c))
-                        getAndDeleteTail(c);
-            }
-
-            return;
+            return result;
         }
+
+        private static String gameDetails () {
+            String game = //"Card Lists: " + solitaire.deck.getTail();
+                    "// CardDeck: " + solitaire.deck.isEmptyString() + "  // Open Card: " + solitaire.deck.getTail() +
+                            "\n// CardStacks: " + solitaire.stacks[0].viewTop() + " " + solitaire.stacks[1].viewTop() + " " + solitaire.stacks[2].viewTop() + " " + solitaire.stacks[3].viewTop()
+                            + "\n// CardLists: \n// 1: " + solitaire.list[0].toString() + "\n// 2: " + solitaire.list[1].toString() + "\n// 3: " + solitaire.list[2].toString() + "\n// 4: " + solitaire.list[3].toString() + "\n// 5: "
+                            + solitaire.list[4].toString() + "\n// 6: " + solitaire.list[5].toString() + "\n// 7: " + solitaire.list[6].toString();
+
+
+            return game;
+        }
+
+        public static String moves () {
+            String moves = ("\n-- DrawCard: Open the next card on the card deck.\n" +
+                    "\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
+                    "DeckTo 3 moves the card that is currently open in the card deck to the third list.\n" +
+                    "\n-- Link c x: Suppose c is a revealed card in a card list, and 1 ?x? 7. This command\n" +
+                    "moves all cards below and including c in the same list to the xth list. For example the\n" +
+                    "command Link Spade9 6 moves all card below and including Spade6 to the 6th card\n" +
+                    "list; see the screenshot below.\n" +
+                    "\n-- Send c: Suppose c is a tail card of a card list. This command moves the card c to\n" +
+                    "the stack that corresponds to its suit.\n" +
+                    "\n-- Restart: Restart the game.\n" +
+                    "\n-- Quit: Stop the game");
+
+            return moves;
+
+        }
+
     }
-
-    private static String gameDetails() {
-        String game = //"Card Lists: " + solitaire.deck.getTail();
-                "// CardDeck: " + solitaire.deck.isEmptyString() + "  // Open Card: " + solitaire.deck.getTail() +
-                        "\n// CardStacks: " + solitaire.stacks[0].viewTop() + " " + solitaire.stacks[1].viewTop() + " " + solitaire.stacks[2].viewTop() + " " + solitaire.stacks[3].viewTop()
-                        + "\n// CardLists: \n// 1: " + solitaire.list[0].toString() + "\n// 2: " + solitaire.list[1].toString() + "\n// 3: " + solitaire.list[2].toString() + "\n// 4: " + solitaire.list[3].toString() + "\n// 5: "
-                        + solitaire.list[4].toString() + "\n// 6: " + solitaire.list[5].toString() + "\n// 7: " + solitaire.list[6].toString();
-
-
-        return game;
-    }
-
-    public static String moves() {
-        String moves = ("\n-- DrawCard: Open the next card on the card deck.\n" +
-                "\n-- DeckTo x : Move one card from the deck to the xth list. For example the command\n" +
-                "DeckTo 3 moves the card that is currently open in the card deck to the third list.\n" +
-                "\n-- Link c x: Suppose c is a revealed card in a card list, and 1 ?x? 7. This command\n" +
-                "moves all cards below and including c in the same list to the xth list. For example the\n" +
-                "command Link Spade9 6 moves all card below and including Spade6 to the 6th card\n" +
-                "list; see the screenshot below.\n" +
-                "\n-- Send c: Suppose c is a tail card of a card list. This command moves the card c to\n" +
-                "the stack that corresponds to its suit.\n" +
-                "\n-- Restart: Restart the game.\n" +
-                "\n-- Quit: Stop the game");
-
-        return moves;
-
-    }
-
-}
