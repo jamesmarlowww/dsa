@@ -172,7 +172,7 @@ public class CardList<E> implements AbstractList<E> {
 
     public Card moveTail() {
         Card temp = tailCard;
-        tailCard.next.setShow(false);
+        tailCard.next.setShow(true);
         tailCard = tailCard.next;
         count--;
         return temp;

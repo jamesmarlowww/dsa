@@ -51,6 +51,7 @@ public class Solitaire {
                 Card c = deck.takeCard();
                 c.setShow(false);
                 list[i].add(list[i].size(), c);
+                list[i].getTailCard().setShow(true);
             }
             list[i].getTailCard().setShow(true);
         }
