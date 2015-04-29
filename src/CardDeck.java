@@ -58,7 +58,7 @@ public class CardDeck<E> implements AbstractList<E> {
         int index = 0;
         for (Card.Suit s : suit) {
             for (Card.CardNum c : card) {
-                Card newCard = new Card(s, c, index);
+                Card newCard = new Card(s, c, index, true);
                 cards.add(newCard.getCardIndex(), newCard);
                 index++;
             }

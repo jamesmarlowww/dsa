@@ -12,12 +12,12 @@ public class Card<E> {
         private boolean show;
 
 
-        public Card(Suit suit, CardNum num, int cardIndex) {
+        public Card(Suit suit, CardNum num, int cardIndex, boolean show) {
             this.suit = suit;
             this.cardValue = num.getNum();
             this.cardColor = suit.getCol();
             this.cardIndex = cardIndex;
-            show = true;
+            this.show =show;
         }
 
         public Card(Card card) {

@@ -62,7 +62,7 @@ public class CardList<E> implements AbstractList<E> {
         int index = 1;
         for (Card.Suit s : suit) {
             for (Card.CardNum c : card) {
-                Card newCard = new Card(s, c, index);
+                Card newCard = new Card(s, c, index, true);
                 newCardList.add(newCard);
                 index++;
             }
@@ -189,10 +189,9 @@ public class CardList<E> implements AbstractList<E> {
         int x = count;
         while (pointer != null && x > 0) {
             if(pointer.getShow()) {
-
-                s+= "BACK, ";
-            } else  {
                 s += pointer + ", ";
+            } else  {
+                s+= "BACK, ";
             }
 
             pointer = pointer.next;
