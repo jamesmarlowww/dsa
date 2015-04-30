@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Scanner;
 
 /**
@@ -60,7 +61,11 @@ public class Solitaire {
 
     //Should create a gui then start the game
     public static void showGUI(Solitaire game) {
-
+        JFrame frame = new JFrame();
+//        SolitairePanel panel = new SolitairePanel();
+//        frame.add(panel);
+        frame.setVisible(true);
+        frame.pack();
     }
 
     //Runs a loop that accepts commands until either a quit command is given or the player wins. Should attempt to perform any commands given, and prints all messages back to the user.
@@ -122,7 +127,7 @@ public class Solitaire {
                 if (checkMovePossible(6, solitaire.deck.getTailCard()))
                     solitaire.list[6].addNewTail(solitaire.deck.takeCard());
                 return;
-
+            case "r": solitaire = new Solitaire();
             case "d":
                 solitaire.deck.drawCard();
                 return;
@@ -163,22 +168,13 @@ public class Solitaire {
                 if (hasCardAllLists(c)) {
                     if (checkMovePossible(listNum, c)) {
                         System.out.println("\n move is possible. in link method\n");
-                        //solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].distanceFromTail(c)));
-
-                        //link(CardList destinationList) list to add tail on.
-                        //removes all items from current list.
 
                         CardList cardList = solitaire.list[getListNumberContainsCard(c)];
-                        System.out.println(cardList.toString()+"list before cuting");
-                        System.out.println(cardList.distanceFromTail(c)+"int of distance from tail");
-
                         cardList = cardList.cut(solitaire.list[getListNumberContainsCard(c)].distanceFromTail(c));
-                        System.out.println(cardList.toString() +": cardlist after cut");
-
                         cardList.link(solitaire.list[listNum]);
 
                     } else {
-                        System.out.println("\n cannot move. move is not possible. ");
+                        System.out.println("\n Cant move. move is not possible. ");
 
                     }
                 }

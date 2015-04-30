@@ -189,11 +189,8 @@ public class CardList<E> implements AbstractList<E> {
             moveTail();
             x--;
 
-
         }
-        System.out.println(stack.size()+"--------------------------- stack size should be 1 for one card");
         while (stack.size() > 0) {
-            System.out.println(stack.get(0).toString());
             destinationList.addNewTail(stack.pop());
         }
     }
