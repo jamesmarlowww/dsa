@@ -90,33 +90,36 @@ public class Solitaire {
             case "DrawCard":
                 solitaire.deck.drawCard();
                 return;
-            case "DeckTo 1": ///these need to be refactored
+
+            ///these need to be refactored, to method similar to link()
+            //
+            case "DeckTo 1":
                 if (checkMovePossible(0, solitaire.deck.getTailCard()))
-                    solitaire.list[0].add(0, solitaire.deck.takeCard());
+                    solitaire.list[0].addNewTail(solitaire.deck.takeCard());
                 return;
             case "DeckTo 2":
                 if (checkMovePossible(1, solitaire.deck.getTailCard()))
-                    solitaire.list[1].add(solitaire.list[1].size(), solitaire.deck.takeCard());
+                    solitaire.list[1].addNewTail(solitaire.deck.takeCard());
                 return;
             case "DeckTo 3":
                 if (checkMovePossible(2, solitaire.deck.getTailCard()))
-                    solitaire.list[2].add(solitaire.list[2].size(), solitaire.deck.takeCard());
+                    solitaire.list[2].addNewTail(solitaire.deck.takeCard());
                 return;
             case "DeckTo 4":
                 if (checkMovePossible(3, solitaire.deck.getTailCard()))
-                    solitaire.list[3].add(solitaire.list[3].size(), solitaire.deck.takeCard());
+                    solitaire.list[3].addNewTail(solitaire.deck.takeCard());
                 return;
             case "DeckTo 5":
                 if (checkMovePossible(4, solitaire.deck.getTailCard()))
-                    solitaire.list[4].add(solitaire.list[4].size(), solitaire.deck.takeCard());
+                    solitaire.list[4].addNewTail(solitaire.deck.takeCard());;
                 return;
             case "DeckTo 6":
                 if (checkMovePossible(5, solitaire.deck.getTailCard()))
-                    solitaire.list[5].add(solitaire.list[5].size(), solitaire.deck.takeCard());
+                    solitaire.list[5].addNewTail(solitaire.deck.takeCard());
                 return;
             case "DeckTo 7":
                 if (checkMovePossible(6, solitaire.deck.getTailCard()))
-                    solitaire.list[6].add(solitaire.list[6].size(), solitaire.deck.takeCard());
+                    solitaire.list[6].addNewTail(solitaire.deck.takeCard());
                 return;
             case "Link":
                 return;
@@ -153,22 +156,65 @@ public class Solitaire {
                 if (card[0].equals("S")) {
                     card[0] = "SPADES";
                     card[1] = card[2];
-
                 }
                 Card c = new Card(Card.Suit.convertStringToEnum(card[0]), Card.CardNum.convertToEnum(card[1]), 1, true);
 
                 int listNum = Integer.parseInt(s[2]);
                 listNum--; //changes list shown number to number in list[].
-                if (solitaire.list[listNum].getIndex(c)) //
+                if (hasCardAllLists(c)) {
                     if (checkMovePossible(listNum, c)) {
-                        System.out.println("its working\n");
-                        solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].distanceFromTail()));
+                        System.out.println("\n move is possible. in link\n");
+                        //solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].distanceFromTail(c)));
+                        solitaire.list[listNum].cut();
+
+                    } else {
+                        System.out.println("\n cannot move. move is not possible. ");
+
                     }
+                }
+
+                result = true;
 
             }
         }
         return result;
 
+    }
+
+    private static int getListNumberContainsCard(Card card) {
+        int list = 0;
+        for (CardList cl : solitaire.list) {
+            int x = cl.size();
+            Card c = cl.getTailCard();
+            while(c!= null && x> 0)  {
+                if (card.getValue() == c.getValue())
+                    if (card.getSuit() == c.getSuit()) {
+                        if(c.getShow()) return list;
+                    }
+                x--;
+                c = c.next;
+            }
+            list++;
+        }
+
+        throw  Exception("");
+        return -1;
+    }
+
+    private static boolean hasCardAllLists(Card card) {
+        for (CardList cl : solitaire.list) {
+            int x = cl.size();
+            Card c = cl.getTailCard();
+            while(c!= null && x> 0)  {
+                if (card.getValue() == c.getValue())
+                    if (card.getSuit() == c.getSuit()) {
+                        if(c.getShow()) return true;
+                    }
+                x--;
+                c = c.next;
+            }
+        }
+        return false;
     }
 
 
@@ -198,7 +244,7 @@ public class Solitaire {
     }
 
     //check if any of the list has card as tail.
-    private static boolean hasCard(Card card) {
+    private static boolean hasCardAtTail(Card card) {
         for (CardList cl : solitaire.list) {
             Card c = cl.getTailCard();
             if (card.getValue() == c.getValue())
@@ -218,12 +264,11 @@ public class Solitaire {
             Card c = cl.getTailCard();
             if (card.getValue() == c.getValue() && card.getSuit() == c.getSuit()) {
                 cl.moveTail();
-
             }
         }
     }
 
-    //needs to be refactord
+    //needs to be refactord to something simialr to link()
     private static boolean sendToStack(String[] s) {
         boolean result = false;
         if (s[0].equalsIgnoreCase("Send")) {
@@ -231,7 +276,7 @@ public class Solitaire {
             if (s[1].contains("CLUBS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.CLUBS, Card.CardNum.convertToEnum(card[1]), 1, true);
-                if (hasCard(c))
+                if (hasCardAtTail(c))
                     if (solitaire.stacks[0].add(c))
                         getAndDeleteTail(c);
                 result = true;
@@ -242,7 +287,7 @@ public class Solitaire {
                 card[0] = "SPADES";
                 card[1] = card[2];
                 Card c = new Card(Card.Suit.SPADES, Card.CardNum.convertToEnum(card[1]), 1, true);
-                if (hasCard(c))
+                if (hasCardAtTail(c))
                     if (solitaire.stacks[1].add(c))
                         getAndDeleteTail(c);
                 result = true;
@@ -250,7 +295,7 @@ public class Solitaire {
             if (s[1].contains("HEARTS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.HEARTS, Card.CardNum.convertToEnum(card[1]), 1, true);
-                if (hasCard(c))
+                if (hasCardAtTail(c))
                     if (solitaire.stacks[2].add(c))
                         getAndDeleteTail(c);
                 result = true;
@@ -259,7 +304,7 @@ public class Solitaire {
             if (s[1].contains("DIAMONDS")) {
                 String[] card = s[1].split("(?<=S)");
                 Card c = new Card(Card.Suit.DIAMONDS, Card.CardNum.convertToEnum(card[1]), 1, true);
-                if (hasCard(c))
+                if (hasCardAtTail(c))
                     if (solitaire.stacks[3].add(c))
                         getAndDeleteTail(c);
                 result = true;

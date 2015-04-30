@@ -38,7 +38,7 @@ public class CardList<E> implements AbstractList<E> {
     }
 
 
-    public boolean getIndex(Card card) {
+    public boolean containsCard(Card card) {
         Card pointer = tailCard;
         int i = 60;
         while (pointer != null && i >0) {
@@ -47,7 +47,7 @@ public class CardList<E> implements AbstractList<E> {
             }
             pointer = pointer.next;
             i--;
-            System.out.println(pointer.toString());
+            //System.out.println(pointer.toString());
         }
 
         return false;
@@ -94,6 +94,11 @@ public class CardList<E> implements AbstractList<E> {
 
     }
 
+    public void addNewTail(Card card) {
+        card.next = tailCard;
+        tailCard = card;
+    }
+
     //returns the second half of list
     //not the  real index. Index is how many cards from the tail
     public CardList cut(int index) {
@@ -111,14 +116,14 @@ public class CardList<E> implements AbstractList<E> {
         return cards;
     }
 
-    public int distanceFromTail() {
+    public int distanceFromTail(Card card) {
         Card pointer = tailCard;
-        int num = 0;
-        while (pointer != null) {
-            num++;
+        int distance =0;
+        while (pointer != null && distance < count) {
             pointer = pointer.next;
+            distance++;
         }
-        return num;
+        return distance;
     }
 
 
@@ -132,16 +137,21 @@ public class CardList<E> implements AbstractList<E> {
         return cards;
     }
 
-    public void link(CardList otherList) {
+    //other list is list to add tail on.
+    //removes all items from current list.
+    public void link(CardList destinationList) {
         Stack<Card> stack = new Stack<>();
-        Card finger = cards.tailCard;
-        while (finger.hasNext()) {
-            stack.push(finger);
-            finger = finger.next;
+
+        while (tailCard.hasNext()) {
+            stack.push(tailCard);
+            moveTail();
+
+
+            System.out.println("stuck here");
         }
         while (stack.size() > 0) {
             Card temp = stack.pop();
-            otherList.cards.add(cards.size(), temp);
+            destinationList.cards.addNewTail(temp);
         }
     }
 
@@ -159,7 +169,7 @@ public class CardList<E> implements AbstractList<E> {
         Card pointer = tailCard;
         while (pointer != null) {
             if (c.compareTo(pointer)) {
-                result = true;
+                return true;
             }
             pointer = pointer.next;
             System.out.println(result);
