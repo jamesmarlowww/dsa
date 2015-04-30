@@ -81,6 +81,9 @@ public class CardDeck<E> implements AbstractList<E> {
             cards.set(i, randomCard);
 
         }
+        //extra  clubs1 was always duplicated at tail
+        takeCard();
+        count++;
     }
 
 

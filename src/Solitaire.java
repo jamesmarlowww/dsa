@@ -32,6 +32,7 @@ public class Solitaire {
         stacks[2] = new CardStack();
         stacks[3] = new CardStack();
 
+//      list = new CardList[6];
 //        for(CardList c: list) {
 //            c = new CardList();
 //        }
@@ -121,10 +122,7 @@ public class Solitaire {
                 if (checkMovePossible(6, solitaire.deck.getTailCard()))
                     solitaire.list[6].addNewTail(solitaire.deck.takeCard());
                 return;
-            case "Link":
-                return;
-            case "Send":
-                return;
+
             case "d":
                 solitaire.deck.drawCard();
                 return;
@@ -157,18 +155,27 @@ public class Solitaire {
                     card[0] = "SPADES";
                     card[1] = card[2];
                 }
+
                 Card c = new Card(Card.Suit.convertStringToEnum(card[0]), Card.CardNum.convertToEnum(card[1]), 1, true);
 
                 int listNum = Integer.parseInt(s[2]);
                 listNum--; //changes list shown number to number in list[].
                 if (hasCardAllLists(c)) {
                     if (checkMovePossible(listNum, c)) {
-                        System.out.println("\n move is possible. in link\n");
+                        System.out.println("\n move is possible. in link method\n");
                         //solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].distanceFromTail(c)));
 
                         //link(CardList destinationList) list to add tail on.
                         //removes all items from current list.
-                        solitaire.list[getListNumberContainsCard(c)].cut(solitaire.list[getListNumberContainsCard(c)].distanceFromTail(c)).link(solitaire.list[listNum]);
+
+                        CardList cardList = solitaire.list[getListNumberContainsCard(c)];
+                        System.out.println(cardList.toString()+"list before cuting");
+                        System.out.println(cardList.distanceFromTail(c)+"int of distance from tail");
+
+                        cardList = cardList.cut(solitaire.list[getListNumberContainsCard(c)].distanceFromTail(c));
+                        System.out.println(cardList.toString() +": cardlist after cut");
+
+                        cardList.link(solitaire.list[listNum]);
 
                     } else {
                         System.out.println("\n cannot move. move is not possible. ");

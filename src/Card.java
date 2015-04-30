@@ -160,7 +160,8 @@ public class Card<E> {
                             }
                         }
                     }
-                    return null;
+                    throw new IllegalArgumentException("string to num conversion errro");
+
                 }
 
 

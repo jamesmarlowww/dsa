@@ -41,7 +41,7 @@ public class CardList<E> implements AbstractList<E> {
     public boolean containsCard(Card card) {
         Card pointer = tailCard;
         int i = 60;
-        while (pointer != null && i >0) {
+        while (pointer != null && i > 0) {
             if (card.getValue() == pointer.getValue() && card.getSuit() == pointer.getSuit()) {
                 return true;
             }
@@ -95,13 +95,18 @@ public class CardList<E> implements AbstractList<E> {
     }
 
     public void addNewTail(Card card) {
-        card.next = tailCard;
-        tailCard = card;
+        if (tailCard == null) {
+            tailCard = card;
+        } else {
+            card.next = tailCard;
+            tailCard = card;
+        }
+        count++;
     }
 
     //returns the second half of list
     //not the  real index. Index is how many cards from the tail
-    public CardList cut(int index) {
+    public CardList cutOld(int index) {
         int i = count - index;
         Card<E> pointer = tailCard;
         while (index > 0) {
@@ -111,26 +116,57 @@ public class CardList<E> implements AbstractList<E> {
         }
         tailCard = pointer;
         count = i;
-
-
         return cards;
     }
 
+    public CardList cut(int i) {
+        Stack<Card> stack = new Stack<>();
+        CardList newList = new CardList();
+
+        while (i >= 0) {
+            stack.push(tailCard);
+            moveTail();
+            i--;
+        }
+        while (stack.size() > 0) {
+            newList.addNewTail(stack.pop());
+        }
+
+        return newList;
+    }
+
+
     public int distanceFromTail(Card card) {
         Card pointer = tailCard;
-        int distance =0;
+        int distance = 0;
         while (pointer != null && distance < count) {
+            if (pointer.compareTo(card)) {
+                return distance;
+            }
             pointer = pointer.next;
             distance++;
         }
         return distance;
+
+
+//        Card pointer = tailCard;
+//        int distance =0;
+//        while (pointer != null && distance < count) {
+//            pointer = pointer.next;
+//            distance++;
+//        }
+//        return distance;
     }
 
-
-    public CardList linkOld(CardList cardList) {
+    //addes the list in parametes to this class. new is added to end
+    public CardList linkMyVersion(CardList cardList) {
+        Stack<Card> stack = new Stack<>();
         while (cardList.tailCard != null) {
-            cards.add(count, cardList.getHead());
-            cardList.tailCard = cardList.tailCard.next;
+            stack.push(cardList.tailCard);
+            cardList.moveTail();
+        }
+        while (stack.size() > 0) {
+            cards.addNewTail(stack.pop());
         }
 
 
@@ -142,16 +178,16 @@ public class CardList<E> implements AbstractList<E> {
     public void link(CardList destinationList) {
         Stack<Card> stack = new Stack<>();
 
-        while (tailCard.hasNext()) {
+        int x = count;
+        while (x >= 0&& tailCard != null) {
             stack.push(tailCard);
-            moveTail();
+            tailCard = tailCard.next;
+            x--;
 
 
-            System.out.println("stuck here");
         }
-        while (stack.size() > 0) {
-            Card temp = stack.pop();
-            destinationList.cards.addNewTail(temp);
+        while (stack.size() > 0 && !stack.isEmpty()) {
+            destinationList.cards.addNewTail(stack.pop());
         }
     }
 
@@ -180,12 +216,17 @@ public class CardList<E> implements AbstractList<E> {
     }
 
 
+    //deletes the tail. makes .next the new tail
     public Card moveTail() {
-        Card temp = tailCard;
-        tailCard.next.setShow(true);
-        tailCard = tailCard.next;
+        if (tailCard.next == null) {
+            tailCard = null;
+        } else {
+            tailCard.next.setShow(true);
+            tailCard = tailCard.next;
+        }
+
         count--;
-        return temp;
+        return tailCard;
     }
 
 
@@ -198,10 +239,10 @@ public class CardList<E> implements AbstractList<E> {
         if (tailCard == null) return "Empty";
         int x = count;
         while (pointer != null && x > 0) {
-            if(pointer.getShow()) {
+            if (pointer.getShow()) {
                 s += pointer + ", ";
-            } else  {
-                s+= "BACK, ";
+            } else {
+                s += "BACK, ";
             }
 
             pointer = pointer.next;
