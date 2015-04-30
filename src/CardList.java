@@ -96,10 +96,15 @@ public class CardList<E> implements AbstractList<E> {
 
     public void addNewTail(Card card) {
         if (tailCard == null) {
+            System.out.println("add new tail if");
             tailCard = card;
+
         } else {
+            System.out.println("add new tail else");
+
             card.next = tailCard;
             tailCard = card;
+
         }
         count++;
     }
@@ -158,20 +163,20 @@ public class CardList<E> implements AbstractList<E> {
 //        return distance;
     }
 
-    //addes the list in parametes to this class. new is added to end
-    public CardList linkMyVersion(CardList cardList) {
-        Stack<Card> stack = new Stack<>();
-        while (cardList.tailCard != null) {
-            stack.push(cardList.tailCard);
-            cardList.moveTail();
-        }
-        while (stack.size() > 0) {
-            cards.addNewTail(stack.pop());
-        }
-
-
-        return cards;
-    }
+//    //addes the list in parametes to this class. new is added to end
+//    public CardList linkMyVersion(CardList cardList) {
+//        Stack<Card> stack = new Stack<>();
+//        while (cardList.tailCard != null) {
+//            stack.push(cardList.tailCard);
+//            cardList.moveTail();
+//        }
+//        while (stack.size() > 0) {
+//            cards.addNewTail(stack.pop());
+//        }
+//
+//
+//        return cards;
+//    }
 
     //other list is list to add tail on.
     //removes all items from current list.
@@ -179,15 +184,17 @@ public class CardList<E> implements AbstractList<E> {
         Stack<Card> stack = new Stack<>();
 
         int x = count;
-        while (x >= 0&& tailCard != null) {
+        while (x > 0) {
             stack.push(tailCard);
-            tailCard = tailCard.next;
+            moveTail();
             x--;
 
 
         }
-        while (stack.size() > 0 && !stack.isEmpty()) {
-            destinationList.cards.addNewTail(stack.pop());
+        System.out.println(stack.size()+"--------------------------- stack size should be 1 for one card");
+        while (stack.size() > 0) {
+            System.out.println(stack.get(0).toString());
+            destinationList.addNewTail(stack.pop());
         }
     }
 
