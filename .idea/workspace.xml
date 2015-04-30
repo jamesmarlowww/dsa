@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9d232b8-bf79-4d54-a86b-2c2a437fd85a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CardList.java" afterPath="$PROJECT_DIR$/src/CardList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Solitaire.java" afterPath="$PROJECT_DIR$/src/Solitaire.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Solitaire.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/src/CardDeck.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="197" column="37" selection-start-line="197" selection-start-column="37" selection-end-line="197" selection-end-column="37" />
+              <caret line="196" column="9" selection-start-line="196" selection-start-column="9" selection-end-line="196" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -69,8 +69,8 @@
       <file leaf-file-name="Solitaire.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Solitaire.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7848101">
-              <caret line="199" column="29" selection-start-line="199" selection-start-column="29" selection-end-line="199" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.5550935">
+              <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -450,7 +450,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967743" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41689372" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29972753" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28337875" sideWeight="0.4948387" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19032258" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -936,7 +936,7 @@
     <entry file="file://$PROJECT_DIR$/src/CardDeck.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="197" column="37" selection-start-line="197" selection-start-column="37" selection-end-line="197" selection-end-column="37" />
+          <caret line="196" column="9" selection-start-line="196" selection-start-column="9" selection-end-line="196" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -957,8 +957,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Solitaire.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7848101">
-          <caret line="199" column="29" selection-start-line="199" selection-start-column="29" selection-end-line="199" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.5550935">
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding />
         </state>
       </provider>

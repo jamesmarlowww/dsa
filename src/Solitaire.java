@@ -165,7 +165,10 @@ public class Solitaire {
                     if (checkMovePossible(listNum, c)) {
                         System.out.println("\n move is possible. in link\n");
                         //solitaire.list[listNum].link(solitaire.list[listNum].cut(solitaire.list[listNum].distanceFromTail(c)));
-                        solitaire.list[listNum].cut();
+
+                        //link(CardList destinationList) list to add tail on.
+                        //removes all items from current list.
+                        solitaire.list[getListNumberContainsCard(c)].cut(solitaire.list[getListNumberContainsCard(c)].distanceFromTail(c)).link(solitaire.list[listNum]);
 
                     } else {
                         System.out.println("\n cannot move. move is not possible. ");
@@ -197,7 +200,6 @@ public class Solitaire {
             list++;
         }
 
-        throw  Exception("");
         return -1;
     }
 
