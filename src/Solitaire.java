@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 /**
  * Created by james on 4/22/2015.
+ *
+ * James Marlow
+ * 1249807
+ * 100% of marks to me. I foolishly dont have a partner
+ *
  */
 public class Solitaire {
     private CardDeck deck;
@@ -15,7 +20,17 @@ public class Solitaire {
 
 
     public static void main(String[] args) {
+
         solitaire = new Solitaire();
+        System.out.println(solitaire.deck.toString());
+        solitaire.deck.drawCard();
+        System.out.println(solitaire.deck.toString());
+        solitaire.deck.drawCard();
+        System.out.println(solitaire.deck.toString());
+        solitaire.deck.drawCard();
+        System.out.println(solitaire.deck.toString());
+        solitaire.deck.drawCard();
+        System.out.println(solitaire.deck.toString());
 
         showGUI(solitaire);
         startGame();
@@ -66,7 +81,7 @@ public class Solitaire {
     public static void showGUI(Solitaire game) {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
-        frame.setPreferredSize(new Dimension(1000, 1000));
+        frame.setPreferredSize(new Dimension(500, 415));
 
 
         panel.setBackground(Color.green);
@@ -75,7 +90,7 @@ public class Solitaire {
         textField.setPreferredSize(new Dimension(150, 24));
 
         panel.add(textField);
-        final JTextArea printGame = new JTextArea(20, 20);
+        final JTextArea printGame = new JTextArea(20, 40);
 
         String start = ("/////////    Welcome to my Solitaire game    ///////// " +
                 " \n// To view all the possible moves enter 'moves' \n \n" +gameDetails());
@@ -113,9 +128,7 @@ public class Solitaire {
     }
 
 
-    public static void action() {
 
-    }
 
     //Runs a loop that accepts commands until either a quit command is given or the player wins. Should attempt to perform any commands given, and prints all messages back to the user.
     public static void startGame() {
