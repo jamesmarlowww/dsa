@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 /**
@@ -62,10 +65,56 @@ public class Solitaire {
     //Should create a gui then start the game
     public static void showGUI(Solitaire game) {
         JFrame frame = new JFrame();
-//        SolitairePanel panel = new SolitairePanel();
-//        frame.add(panel);
+        JPanel panel = new JPanel();
+        frame.setPreferredSize(new Dimension(1000, 1000));
+
+
+        panel.setBackground(Color.green);
+
+        final JTextField textField = new JTextField();
+        textField.setPreferredSize(new Dimension(150, 24));
+
+        panel.add(textField);
+        final JTextArea printGame = new JTextArea(20, 20);
+
+        String start = ("/////////    Welcome to my Solitaire game    ///////// " +
+                " \n// To view all the possible moves enter 'moves' \n \n" +gameDetails());
+
+        printGame.append(start);
+
+        JButton go = new JButton("Go");
+        go.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String command = textField.getText();
+
+
+                executeCommand(command);
+                System.out.println(command);
+                System.out.println(gameDetails());
+                System.out.println("\n// Your next move: ");
+
+                printGame.setText(gameDetails());
+
+
+            }
+        });
+
+        panel.add(go);
+        panel.add(printGame);
+
+
+        frame.add(panel);
         frame.setVisible(true);
         frame.pack();
+
+
+    }
+
+
+    public static void action() {
+
     }
 
     //Runs a loop that accepts commands until either a quit command is given or the player wins. Should attempt to perform any commands given, and prints all messages back to the user.
@@ -80,6 +129,8 @@ public class Solitaire {
             String store = scan.nextLine();
 
             executeCommand(store);
+            System.out.println(solitaire.deck.toString());
+
         }
     }
 
@@ -117,7 +168,8 @@ public class Solitaire {
                 return;
             case "DeckTo 5":
                 if (checkMovePossible(4, solitaire.deck.getTailCard()))
-                    solitaire.list[4].addNewTail(solitaire.deck.takeCard());;
+                    solitaire.list[4].addNewTail(solitaire.deck.takeCard());
+                ;
                 return;
             case "DeckTo 6":
                 if (checkMovePossible(5, solitaire.deck.getTailCard()))
@@ -127,7 +179,8 @@ public class Solitaire {
                 if (checkMovePossible(6, solitaire.deck.getTailCard()))
                     solitaire.list[6].addNewTail(solitaire.deck.takeCard());
                 return;
-            case "r": solitaire = new Solitaire();
+            case "r":
+                solitaire = new Solitaire();
             case "d":
                 solitaire.deck.drawCard();
                 return;
@@ -192,10 +245,10 @@ public class Solitaire {
         for (CardList cl : solitaire.list) {
             int x = cl.size();
             Card c = cl.getTailCard();
-            while(c!= null && x> 0)  {
+            while (c != null && x > 0) {
                 if (card.getValue() == c.getValue())
                     if (card.getSuit() == c.getSuit()) {
-                        if(c.getShow()) return list;
+                        if (c.getShow()) return list;
                     }
                 x--;
                 c = c.next;
@@ -210,10 +263,10 @@ public class Solitaire {
         for (CardList cl : solitaire.list) {
             int x = cl.size();
             Card c = cl.getTailCard();
-            while(c!= null && x> 0)  {
+            while (c != null && x > 0) {
                 if (card.getValue() == c.getValue())
                     if (card.getSuit() == c.getSuit()) {
-                        if(c.getShow()) return true;
+                        if (c.getShow()) return true;
                     }
                 x--;
                 c = c.next;
